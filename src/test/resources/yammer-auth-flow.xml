@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:yammer="http://www.mulesoft.org/schema/mule/yammer"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+                          http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/1.0-SNAPSHOT/mule-yammer.xsd">
+                          
+    <yammer:config consumerKey="${consumer.key}" consumerSecret="${consumer.secret}"
+        token="${token}" secret="${secret}"/>
+    
+    <flow name="YammerTest">
+        <inbound-endpoint address="http://localhost:9002/get-statuses"/>
+        <yammer:get-messages/>
+    </flow>
+    
+    <flow name="request-authorization">
+        <inbound-endpoint address="http://localhost:9002/request-authorization"/>
+        <yammer:request-authorization/>
+        <message-properties-transformer>
+            <add-message-property key="http.status" value="302"/>
+            <add-message-property key="Location" value="#[payload]"/>
+        </message-properties-transformer>
+    </flow>
+</mule>

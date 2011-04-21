@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
-public class YammerTestCase {
+public class YammerTestCase extends Assert {
     @Test
     public void testGetMessages() throws Exception {
         YammerConnector connector = new YammerConnector();
@@ -23,14 +25,28 @@ public class YammerTestCase {
         connector.setDebug(true);
         connector.initialize();
 
-        // String oauthVerifier = getOauthVerifier();
+        // If you don't have a token/secret, uncomment out these lines. The connector
+        // will print out a URL where you can go to and then set the verifier code here
+        // String url = connector.requestAuthorization();
+        // System.out.println("Please go to " + url + " to get an access code.");
+        // String oauthVerifier = getOauthVerifierFromSystemIn();
         // connector.setOauthVerifier(oauthVerifier);
 
         List<Message> messages = connector.getMessages();
+        assertTrue(messages.size() > 0);
+        
+        messages = connector.getSentMessages();
+        assertTrue(messages.size() > 0);
+        
+        messages = connector.getPrivateMessages();
+//        assertTrue(messages.size() > 0);
+        
+        messages = connector.getFollowingMessages();
+        assertTrue(messages.size() > 0);
         System.out.println(messages);
     }
 
-    protected String getOauthVerifier() {
+    protected String getOauthVerifierFromSystemIn() {
         System.out.print("Enter your oauth access token: ");
 
         // open up standard input
