@@ -4,9 +4,10 @@
 
 package org.mule.yammer;
 
+import org.mule.api.lifecycle.Initialisable;
+import org.mule.api.lifecycle.InitialisationException;
 import org.mule.tools.cloudconnect.annotations.Connector;
 import org.mule.tools.cloudconnect.annotations.Operation;
-import org.mule.tools.cloudconnect.annotations.Parameter;
 import org.mule.tools.cloudconnect.annotations.Property;
 
 import com.sun.jersey.api.client.Client;
@@ -23,15 +24,13 @@ import com.sun.jersey.oauth.signature.OAuthSecrets;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.codehaus.jackson.jaxrs.Annotations;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
 @Connector(namespacePrefix = "yammer")
-public class YammerConnector {
+public class YammerConnector implements Initialisable {
 
     @Property
     private String consumerKey;
@@ -57,8 +56,8 @@ public class YammerConnector {
     @Property(optional = true)
     private String secret;
 
-    @PostConstruct
-    public void initialize() throws Exception {
+    @Override
+    public void initialise() throws InitialisationException {
         if (client == null) {
             DefaultClientConfig config = new DefaultClientConfig();
             ObjectMapper mapper = new ObjectMapper();
@@ -75,7 +74,7 @@ public class YammerConnector {
     }
 
     @Operation
-    public void setOauthVerifier(@Parameter(name="oauthVerifier") String oauthVerifier) {
+    public void setOauthVerifier(String oauthVerifier) {
         this.oauthVerifier = oauthVerifier;
 
         WebResource resource = client.resource("https://www.yammer.com/oauth/access_token");

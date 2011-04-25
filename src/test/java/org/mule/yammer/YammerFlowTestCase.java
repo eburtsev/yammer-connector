@@ -11,8 +11,6 @@ package org.mule.yammer;
 
 import org.mule.tck.FunctionalTestCase;
 
-import org.junit.Test;
-
 public class YammerFlowTestCase extends FunctionalTestCase {
 
     @Override

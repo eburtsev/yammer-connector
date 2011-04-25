@@ -23,7 +23,7 @@ public class YammerTestCase extends Assert {
         connector.setSecret("zNhgCAU1gkgLTwzWmRczfkFEbf1HwCD54bfJ2hgc");
         
         connector.setDebug(true);
-        connector.initialize();
+        connector.initialise();
 
         // If you don't have a token/secret, uncomment out these lines. The connector
         // will print out a URL where you can go to and then set the verifier code here
