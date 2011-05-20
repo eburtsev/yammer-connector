@@ -1,7 +1,7 @@
-Mule HTTP Cloud Connector
-=========================
+Mule Yammer Connector
+=====================
 
-Mule Cloud connector to HTTP
+Mule Connector to Yammer
 
 Installation
 ------------
@@ -37,7 +37,7 @@ application:
 
     <dependency>
         <groupId>org.mule.modules</groupId>
-        <artifactId>yammer-connector</artifactId>
+        <artifactId>mule-module-yammer</artifactId>
         <version>1.0-SNAPSHOT</version>
     </dependency>
 
