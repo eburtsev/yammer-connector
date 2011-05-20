@@ -3,11 +3,11 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
-    <artifactId>yammer-connector</artifactId>
+    <artifactId>mule-module-yammer</artifactId>
     <packaging>cloud-connector</packaging>
-    <name>Mule HTTP Cloud Connector</name>
+    <name>Mule Yammer Connector</name>
     <version>1.0-SNAPSHOT</version>
-    <description>Mule Cloud connector to HTTP</description>
+    <description>Mule Connector to Yammer</description>
     <url>http://www.muleforge.org/projects/yammer-connector</url>
 
     <properties>
