@@ -21,8 +21,8 @@ public class YammerTestCase extends Assert {
         connector.setConsumerKey(System.getProperty("consumer.key"));
         connector.setConsumerSecret(System.getProperty("consumer.secret"));
         
-        connector.setToken(System.getProperty("token"));
-        connector.setSecret(System.getProperty("secret"));
+        connector.setAccessToken(System.getProperty("token"));
+        connector.setAccessTokenSecret(System.getProperty("secret"));
         
         connector.setDebug(true);
         connector.initialise();

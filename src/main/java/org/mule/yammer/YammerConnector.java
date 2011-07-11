@@ -58,10 +58,10 @@ public class YammerConnector implements Initialisable {
     private String oauthToken;
 
     @Property(optional = true)
-    private String token;
+    private String accessToken;
 
     @Property(optional = true)
-    private String secret;
+    private String accessTokenSecret;
 
     @Override
     public void initialise() throws InitialisationException {
@@ -109,10 +109,10 @@ public class YammerConnector implements Initialisable {
         handleErrors(post);
 
         Form form = post.getEntity(Form.class);
-        token = form.getFirst("oauth_token");
-        secret = form.getFirst("oauth_token_secret");
+        accessToken = form.getFirst("oauth_token");
+        accessTokenSecret = form.getFirst("oauth_token_secret");
         
-        logger.info("Got OAuth access tokens. Access token:"  + token + " Access token secret:" + secret);
+        logger.info("Got OAuth access tokens. Access token:"  + accessToken + " Access token secret:" + accessTokenSecret);
     }
 
     /**
@@ -193,9 +193,9 @@ public class YammerConnector implements Initialisable {
     protected WebResource oauthResource(String url) {
         WebResource resource = client.resource(url);
         OAuthParameters params = new OAuthParameters().signatureMethod(HMAC_SHA1.NAME).consumerKey(consumerKey)
-                .token(token).version();
+                .token(accessToken).version();
 
-        OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret).tokenSecret(secret);
+        OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret).tokenSecret(accessTokenSecret);
 
         resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
         return resource;
@@ -249,20 +249,20 @@ public class YammerConnector implements Initialisable {
         this.oauthToken = oauthToken;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String token) {
+        this.accessToken = token;
     }
 
-    public String getSecret() {
-        return secret;
+    public String getAccessTokenSecret() {
+        return accessTokenSecret;
     }
 
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setAccessTokenSecret(String secret) {
+        this.accessTokenSecret = secret;
     }
 
 }
