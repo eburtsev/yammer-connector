@@ -52,14 +52,14 @@ The first flow will redirect you to the Yammer authorization page once the conne
 requested an authentication token. The second flow will allow you to set the OAuth verifier code.
 
 To authenticate your connector, do the following:
-* [Create a Yammer accoun](http://yammer.com)
-* [Register your application](https://www.yammer.com/client_applications/new) with Yammer  
-* Set your OAuth consumer key and secret on your config element as shown above
-* Go to http://localhost:9002/yammer/request-authorization in your browser
-* You will be redirected to the Yammer authorization page. Click Authorize.
-* Take the resulting OAuth verifier code and go to http://localhost:9002/yammer/set-oauth-verifier?verifier=OAUTH_VERIFIER in your browser.
-* Your access token and secret will be logged to your application logs. You can use those to avoid
-  future authentication setup by setting the accessToken and accessTokenSecret attributes on the connector.
+
+- [Create a Yammer account](http://yammer.com)
+- [Register your application](https://www.yammer.com/client_applications/new) with Yammer  
+- Set your OAuth consumer key and secret on your config element as shown above
+- Go to http://localhost:9002/yammer/request-authorization in your browser
+- You will be redirected to the Yammer authorization page. Click Authorize.
+- Take the resulting OAuth verifier code and go to http://localhost:9002/yammer/set-oauth-verifier?verifier=OAUTH_VERIFIER in your browser.
+- Your access token and secret will be logged to your application logs. You can use those to avoid future authentication setup by setting the accessToken and accessTokenSecret attributes on the connector.
 
 Installation
 ------------
@@ -104,7 +104,7 @@ Configuration
 
 You can configure the connector as follows:
 
-    <yammer:config consumerKey="value" consumerSecret="value" debug="value" token="value" secret="value"/>
+    <yammer:config consumerKey="value" consumerSecret="value" debug="value" accessToken="value" accessTokenSecret="value"/>
 
 Here is detailed list of all the configuration attributes:
 
@@ -114,8 +114,8 @@ Here is detailed list of all the configuration attributes:
 |consumerKey||no|
 |consumerSecret||no|
 |debug||yes|
-|token||yes|
-|secret||yes|
+|accessToken||yes|
+|accessTokenSecret||yes|
 
 
 
