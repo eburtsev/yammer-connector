@@ -60,6 +60,7 @@ The first flow will redirect you to the Yammer authorization page once the conne
 requested an authentication token. The second flow will allow you to set the OAuth verifier code.
 
 To authenticate your connector, do the following:
+
  * [Create a Yammer accoun](http://yammer.com)
  * [Register your application](https://www.yammer.com/client_applications/new) with Yammer  
  * Set your OAuth consumer key and secret on your config element as shown above
