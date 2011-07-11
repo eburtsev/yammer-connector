@@ -31,6 +31,9 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
+/**
+ * Connector for Yammer related functions.
+ */
 @Connector(namespacePrefix = "yammer")
 public class YammerConnector implements Initialisable {
 
