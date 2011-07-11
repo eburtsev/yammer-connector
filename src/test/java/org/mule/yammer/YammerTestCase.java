@@ -10,17 +10,19 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class YammerTestCase extends Assert {
     @Test
+    @Ignore
     public void testGetMessages() throws Exception {
         YammerConnector connector = new YammerConnector();
-        connector.setConsumerKey("itUVrWHnCdv0QMntF9ovw");
-        connector.setConsumerSecret("JgPo2npkc6uPXhHWY0JVtPsEs5NEyLssqRt0jLtULM");
+        connector.setConsumerKey(System.getProperty("consumer.key"));
+        connector.setConsumerSecret(System.getProperty("consumer.secret"));
         
-        connector.setToken("gAvX8IjnpPzJvVM3hcWA");
-        connector.setSecret("zNhgCAU1gkgLTwzWmRczfkFEbf1HwCD54bfJ2hgc");
+        connector.setToken(System.getProperty("token"));
+        connector.setSecret(System.getProperty("secret"));
         
         connector.setDebug(true);
         connector.initialise();

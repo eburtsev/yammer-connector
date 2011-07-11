@@ -19,6 +19,6 @@ public class YammerFlowTestCase extends FunctionalTestCase {
     }
 
     public void testAuthenticationFlow() throws Exception {
-        Thread.sleep(1000000);
+        // TODO
     }
 }

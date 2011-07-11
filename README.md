@@ -1,7 +1,10 @@
 Mule Yammer Connector
 =====================
 
-Mule Connector to Yammer
+
+
+The Yammer Connector currently makes it possible to query different timelines
+available to a user, such as the public, friends or private timeline.
 
 Installation
 ------------

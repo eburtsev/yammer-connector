@@ -24,6 +24,8 @@ import com.sun.jersey.oauth.signature.OAuthSecrets;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.jaxrs.Annotations;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -32,6 +34,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Connector(namespacePrefix = "yammer")
 public class YammerConnector implements Initialisable {
 
+    protected transient Log logger = LogFactory.getLog(getClass());
+    
     @Property
     private String consumerKey;
 
@@ -73,6 +77,13 @@ public class YammerConnector implements Initialisable {
         }
     }
 
+    /**
+     * Set the OAuth verifier after it has been retrieved via requestAuthorization. The resulting access tokens
+     * will be logged to the INFO level so the user can reuse them as part of the configuration in the future
+     * if desired.
+     * 
+     * @param oauthVerifier The OAuth verifier code from Yammer.
+     */
     @Operation
     public void setOauthVerifier(String oauthVerifier) {
         this.oauthVerifier = oauthVerifier;
@@ -97,8 +108,15 @@ public class YammerConnector implements Initialisable {
         Form form = post.getEntity(Form.class);
         token = form.getFirst("oauth_token");
         secret = form.getFirst("oauth_token_secret");
+        
+        logger.info("Got OAuth access tokens. Access token:"  + token + " Access token secret:" + secret);
     }
 
+    /**
+     * Start the OAuth request authorization process. This will request a token from Yammer and return
+     * a URL which the user can visit to authorize the connector for their account.
+     * @return The user authorization URL.
+     */
     @Operation
     public String requestAuthorization() {
         WebResource resource = client.resource("https://www.yammer.com/oauth/request_token");
