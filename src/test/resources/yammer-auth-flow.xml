@@ -9,7 +9,7 @@
                           http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/1.0-SNAPSHOT/mule-yammer.xsd">
                           
     <yammer:config consumerKey="${consumer.key}" consumerSecret="${consumer.secret}"
-        token="${token}" secret="${secret}"/>
+        accessToken="${token}" accessTokenSecret="${secret}"/>
     
     <flow name="YammerTest">
         <inbound-endpoint address="http://localhost:9002/get-statuses"/>
