@@ -279,6 +279,12 @@ To authenticate your connector, do the following:
         </dependency>
     </dependencies>
 
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/yammer-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/yammer-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/yammer-connector</url>
+    </scm>
+  
     <repositories>
         <repository>
             <id>codehaus-repo</id>
