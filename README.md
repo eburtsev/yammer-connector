@@ -12,7 +12,7 @@ available to a user, such as the public, friends or private timeline. For exampl
         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
                               http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.1/mule-json.xsd
-                              http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/1.0-SNAPSHOT/mule-yammer.xsd">
+                              http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/1.0-beta-1/mule-yammer.xsd">
                               
         <yammer:config consumerKey="${consumer.key}" consumerSecret="${consumer.secret}"/>
         
@@ -84,7 +84,7 @@ Add the connector's maven repo to your pom.xml:
         <repository>
             <id>muleforge.webdav.releases</id>
             <name>MuleSoft Release Repository</name>
-            <url>https://repository.muleforge.org/release/</url>
+            <url>https://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
         </repsitory>
     </repositories>
@@ -96,7 +96,7 @@ application:
     <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-yammer</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-beta-1</version>
     </dependency>
 
 Configuration
