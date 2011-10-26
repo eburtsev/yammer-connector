@@ -4,11 +4,12 @@
 
 package org.mule.yammer;
 
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Module;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.param.Optional;
 import org.mule.api.lifecycle.Initialisable;
 import org.mule.api.lifecycle.InitialisationException;
-import org.mule.tools.cloudconnect.annotations.Connector;
-import org.mule.tools.cloudconnect.annotations.Operation;
-import org.mule.tools.cloudconnect.annotations.Property;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -33,34 +34,36 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * Connector for Yammer related functions.
+ * 
+ * @author MuleSoft, Inc. 
  */
-@Connector(namespacePrefix = "yammer")
+@Module(name = "yammer", schemaVersion="2.0")
 public class YammerConnector implements Initialisable {
 
     protected transient Log logger = LogFactory.getLog(getClass());
     
-    @Property
+    @Configurable
     private String consumerKey;
 
-    @Property
+    @Configurable
     private String consumerSecret;
 
-    @Property(optional = true)
+    @Configurable@Optional
     private boolean debug;
 
     protected String oauthVerifier;
 
-    // @Property - will reenable when CC supports this.
+    // @Configurable - will reenable when CC supports this.
     private Client client;
 
     private String oauthTokenSecret;
 
     private String oauthToken;
 
-    @Property(optional = true)
+    @Configurable@Optional
     private String accessToken;
 
-    @Property(optional = true)
+    @Configurable@Optional
     private String accessTokenSecret;
 
     @Override
@@ -87,7 +90,7 @@ public class YammerConnector implements Initialisable {
      * 
      * @param oauthVerifier The OAuth verifier code from Yammer.
      */
-    @Operation
+    @Processor
     public void setOauthVerifier(String oauthVerifier) {
         this.oauthVerifier = oauthVerifier;
 
@@ -120,7 +123,7 @@ public class YammerConnector implements Initialisable {
      * a URL which the user can visit to authorize the connector for their account.
      * @return The user authorization URL.
      */
-    @Operation
+    @Processor
     public String requestAuthorization() {
         WebResource resource = client.resource("https://www.yammer.com/oauth/request_token");
         // Set the OAuth parameters
@@ -150,27 +153,27 @@ public class YammerConnector implements Initialisable {
         }
     }
 
-    @Operation
+    @Processor
     public List<Message> getMessages() {
         return getMessages("https://www.yammer.com/api/v1/messages.json");
     }
 
-    @Operation
+    @Processor
     public List<Message> getSentMessages() {
         return getMessages("https://www.yammer.com/api/v1/messages/sent.json");
     }
 
-    @Operation
+    @Processor
     public List<Message> getReceivedMessages() {
         return getMessages("https://www.yammer.com/api/v1/messages/received.json");
     }
 
-    @Operation
+    @Processor
     public List<Message> getPrivateMessages() {
         return getMessages("https://www.yammer.com/api/v1/messages/private.json");
     }
 
-    @Operation
+    @Processor
     public List<Message> getFollowingMessages() {
         return getMessages("https://www.yammer.com/api/v1/messages/following.json");
     }

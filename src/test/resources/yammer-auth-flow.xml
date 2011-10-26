@@ -4,9 +4,9 @@
     xmlns:yammer="http://www.mulesoft.org/schema/mule/yammer"
     xmlns:json="http://www.mulesoft.org/schema/mule/json"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
-                          http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.1/mule-json.xsd
-                          http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/1.0-SNAPSHOT/mule-yammer.xsd">
+                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
+                          http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.2/mule-json.xsd
+                          http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd">
                           
     <yammer:config consumerKey="${consumer.key}" consumerSecret="${consumer.secret}"
         accessToken="${token}" accessTokenSecret="${secret}"/>
