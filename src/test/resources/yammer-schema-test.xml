@@ -22,27 +22,32 @@
                           
     <yammer:config consumerKey="${consumer.key}" consumerSecret="${consumer.secret}"
         accessToken="${token}" accessTokenSecret="${secret}"/>
-    
-    <flow name="YammerTest">
-        <inbound-endpoint address="http://localhost:9002/get-statuses"/>
-        <response>
-            <json:object-to-json-transformer/>
-        </response>
+        
+    <flow name="GetMessages">
         <yammer:get-messages/>
     </flow>
     
-    <flow name="request-authorization">
-        <inbound-endpoint address="http://localhost:9002/request-authorization"/>
-        <yammer:request-authorization/>
-        <message-properties-transformer>
-            <add-message-property key="http.status" value="302"/>
-            <add-message-property key="Location" value="#[payload]"/>
-        </message-properties-transformer>
+    <flow name="GetSentMessages">
+        <yammer:get-sent-messages/>
     </flow>
     
-    <flow name="set-oauth-verifier">
-        <inbound-endpoint address="http://localhost:9002/set-oauth-verifier"/>
-        <logger />
+    <flow name="GetReceivedMessages">
+        <yammer:get-received-messages/>
+    </flow>
+    
+    <flow name="GetPrivateMessages">
+        <yammer:get-private-messages/>
+    </flow>
+    
+    <flow name="GetFollowingMessages">
+        <yammer:get-following-messages/>
+    </flow>
+    
+    <flow name="RequestAuthorization">
+        <yammer:request-authorization/>
+    </flow>
+    
+    <flow name="SetOauthVerifier">
         <yammer:set-oauth-verifier oauthVerifier="#[header:inbound:verifier]"/>
     </flow>
 </mule>

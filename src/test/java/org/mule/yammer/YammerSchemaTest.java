@@ -10,16 +10,23 @@
 
 package org.mule.yammer;
 
-import org.mule.tck.FunctionalTestCase;
+import org.mule.tck.junit4.FunctionalTestCase;
 
-public class YammerFlowTestCase extends FunctionalTestCase {
+import org.junit.Test;
+
+
+public class YammerSchemaTest extends FunctionalTestCase {
 
     @Override
     protected String getConfigResources() {
-        return "yammer-auth-flow.xml";
+        return "yammer-schema-test.xml";
     }
 
-    public void testAuthenticationFlow() throws Exception {
-        // TODO
+    /**
+     * Tests that the schema can be parsed 
+     */
+    @Test
+    public void canParse() throws Exception {
+        // nothing. will fail if schema can not parse 
     }
 }
