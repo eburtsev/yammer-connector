@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule Yammer Cloud Connector
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+    The software in this package is published under the terms of the CPAL v1.0
+    license, a copy of which has been included with this distribution in the
+    LICENSE.txt file.
+
+-->
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:yammer="http://www.mulesoft.org/schema/mule/yammer"
+    xmlns:json="http://www.mulesoft.org/schema/mule/json"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
+                          http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.2/mule-json.xsd
+                          http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd">
+                          
+    <yammer:config consumerKey="${consumer.key}" consumerSecret="${consumer.secret}"
+        accessToken="${token}" accessTokenSecret="${secret}"/>
+        
+    <flow name="GetMessages">
+        <yammer:get-messages/>
+    </flow>
+    
+    <flow name="GetSentMessages">
+        <yammer:get-sent-messages/>
+    </flow>
+    
+    <flow name="GetReceivedMessages">
+        <yammer:get-received-messages/>
+    </flow>
+    
+    <flow name="GetPrivateMessages">
+        <yammer:get-private-messages/>
+    </flow>
+    
+    <flow name="GetFollowingMessages">
+        <yammer:get-following-messages/>
+    </flow>
+    
+    <flow name="RequestAuthorization">
+        <yammer:request-authorization/>
+    </flow>
+    
+    <flow name="SetOauthVerifier">
+        <yammer:set-oauth-verifier oauthVerifier="#[header:inbound:verifier]"/>
+    </flow>
+</mule>
