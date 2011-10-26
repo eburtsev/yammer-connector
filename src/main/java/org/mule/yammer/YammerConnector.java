@@ -52,12 +52,23 @@ public class YammerConnector implements Initialisable {
 
     protected transient Log logger = LogFactory.getLog(getClass());
 
+    /**
+     * The OAuth consumer key 
+     */
     @Configurable
     private String consumerKey;
 
+    /**
+     * The OAuth consumer secret 
+     */
     @Configurable
     private String consumerSecret;
 
+    /**
+     * If connector should be run in debug mode.
+     * This enables logging of HTTP activity 
+     * against Yammer 
+     */
     @Configurable
     @Optional
     private boolean debug;
@@ -71,10 +82,16 @@ public class YammerConnector implements Initialisable {
 
     private String oauthToken;
 
+    /**
+     * The OAuth accessToken
+     */
     @Configurable
     @Optional
     private String accessToken;
 
+    /**
+     * The OAuth accessToken secret
+     */
     @Configurable
     @Optional
     private String accessTokenSecret;
@@ -180,30 +197,61 @@ public class YammerConnector implements Initialisable {
         }
     }
 
+    /**
+     * Answers all messages in this network. Corresponds to the "Company Feed" tab on the website.
+     * 
+     * @return the list of {@link Message}s
+     */
     @Processor
     public List<Message> getMessages()
     {
         return getMessages("https://www.yammer.com/api/v1/messages.json");
     }
 
+    /**
+     * Answers the whole list of messages sent by the current user. 
+     * Corresponds to the "Sent" tab on the website.
+     * 
+     * 
+     * @return the list of {@link Message}s
+     */
     @Processor
     public List<Message> getSentMessages()
     {
         return getMessages("https://www.yammer.com/api/v1/messages/sent.json");
     }
 
+    /**
+     * Answers the list of messages received by the logged-in user. 
+     * Corresponds to the "Received" tab on the website.
+     * 
+     * @return the list of {@link Message}s
+     */
     @Processor
     public List<Message> getReceivedMessages()
     {
         return getMessages("https://www.yammer.com/api/v1/messages/received.json");
     }
 
+    /**
+     * Answers the whole list of private Messages (aka Direct Messages) for the logged-in user. 
+     * Corresponds to the "Direct Messages" section on the website.
+     * 
+     * @return the list of {@link Message}s
+     */
     @Processor
     public List<Message> getPrivateMessages()
     {
         return getMessages("https://www.yammer.com/api/v1/messages/private.json");
     }
 
+    /**
+     * Answers the list of messages followed by the logged-in user. 
+     * Corresponds to the "My Feed" tab on the website.
+     * 
+     * 
+     * @return the list of {@link Message}s
+     */
     @Processor
     public List<Message> getFollowingMessages()
     {
