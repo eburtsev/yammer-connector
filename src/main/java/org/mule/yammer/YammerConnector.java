@@ -48,6 +48,18 @@ import org.codehaus.jackson.map.ObjectMapper;
 /**
  * Connector for Yammer related functions.
  * 
+ * <a href="https://www.yammer.com">Yammer</a> is a social-network-like internal corporate communications system,
+ * where users are able to post messages, follow users, 
+ * images and so on in a manner like Facebook or Twitter.
+ * 
+ * This connector allows to:
+ * <ul>
+ *  <li>Retrieve messages</li>
+ *  <li>Retrieve received messages</li>
+ *  <li>Retrieve private messages</li>
+ *  <li>Retrieve sent messages</li>   
+ * </ul>
+ * 
  * @author MuleSoft, Inc. 
  */
 @Module(name = "yammer", schemaVersion="2.0")
