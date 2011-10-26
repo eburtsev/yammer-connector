@@ -17,6 +17,7 @@ package org.mule.yammer;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.lifecycle.Initialisable;
 import org.mule.api.lifecycle.InitialisationException;
@@ -73,6 +74,7 @@ public class YammerConnector  {
      */
     @Configurable
     @Optional
+    @Default("false")
     private boolean debug;
 
     protected String oauthVerifier;
