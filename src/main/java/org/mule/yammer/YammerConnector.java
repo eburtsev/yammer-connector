@@ -35,6 +35,8 @@ import com.sun.jersey.oauth.signature.OAuthSecrets;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.jaxrs.Annotations;
@@ -48,7 +50,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author MuleSoft, Inc. 
  */
 @Module(name = "yammer", schemaVersion="2.0")
-public class YammerConnector implements Initialisable {
+public class YammerConnector  {
 
     protected transient Log logger = LogFactory.getLog(getClass());
 
@@ -96,8 +98,8 @@ public class YammerConnector implements Initialisable {
     @Optional
     private String accessTokenSecret;
 
-    @Override
-    public void initialise() throws InitialisationException
+    @PostConstruct
+    public void initialise() 
     {
         if (client == null)
         {
