@@ -98,6 +98,7 @@ public class YammerConnector  {
     @Optional
     private String accessTokenSecret;
 
+    
     @PostConstruct
     public void initialise() 
     {
@@ -122,6 +123,8 @@ public class YammerConnector  {
      * Set the OAuth verifier after it has been retrieved via requestAuthorization. The resulting access tokens
      * will be logged to the INFO level so the user can reuse them as part of the configuration in the future
      * if desired.
+     * 
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:set-oauth-verifier}
      * 
      * @param oauthVerifier The OAuth verifier code from Yammer.
      */
@@ -163,6 +166,8 @@ public class YammerConnector  {
      * Yammer and return a URL which the user can visit to authorize the connector
      * for their account.
      * 
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:request-authorization}
+     * 
      * @return The user authorization URL.
      */
     @Processor
@@ -202,6 +207,7 @@ public class YammerConnector  {
     /**
      * Answers all messages in this network. Corresponds to the "Company Feed" tab on the website.
      * 
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:request-authorization}
      * @return the list of {@link Message}s
      */
     @Processor
@@ -214,6 +220,7 @@ public class YammerConnector  {
      * Answers the whole list of messages sent by the current user. 
      * Corresponds to the "Sent" tab on the website.
      * 
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-sent-messages}
      * 
      * @return the list of {@link Message}s
      */
@@ -227,6 +234,8 @@ public class YammerConnector  {
      * Answers the list of messages received by the logged-in user. 
      * Corresponds to the "Received" tab on the website.
      * 
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-received-messages}
+     * 
      * @return the list of {@link Message}s
      */
     @Processor
@@ -238,6 +247,8 @@ public class YammerConnector  {
     /**
      * Answers the whole list of private Messages (aka Direct Messages) for the logged-in user. 
      * Corresponds to the "Direct Messages" section on the website.
+     * 
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-private-messages}
      * 
      * @return the list of {@link Message}s
      */
@@ -251,7 +262,7 @@ public class YammerConnector  {
      * Answers the list of messages followed by the logged-in user. 
      * Corresponds to the "My Feed" tab on the website.
      * 
-     * 
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-following-messages}
      * @return the list of {@link Message}s
      */
     @Processor
@@ -275,8 +286,8 @@ public class YammerConnector  {
     /**
      * Creates a WebResource with the proper oauth authentication information.
      * 
-     * @param url
-     * @return
+     * @param url the url of the resource
+     * @return the authenticated {@link WebResource} 
      */
     protected WebResource oauthResource(String url)
     {
