@@ -41,14 +41,15 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class YammerConnector implements Initialisable {
 
     protected transient Log logger = LogFactory.getLog(getClass());
-    
+
     @Configurable
     private String consumerKey;
 
     @Configurable
     private String consumerSecret;
 
-    @Configurable@Optional
+    @Configurable
+    @Optional
     private boolean debug;
 
     protected String oauthVerifier;
@@ -60,15 +61,19 @@ public class YammerConnector implements Initialisable {
 
     private String oauthToken;
 
-    @Configurable@Optional
+    @Configurable
+    @Optional
     private String accessToken;
 
-    @Configurable@Optional
+    @Configurable
+    @Optional
     private String accessTokenSecret;
 
     @Override
-    public void initialise() throws InitialisationException {
-        if (client == null) {
+    public void initialise() throws InitialisationException
+    {
+        if (client == null)
+        {
             DefaultClientConfig config = new DefaultClientConfig();
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -78,7 +83,8 @@ public class YammerConnector implements Initialisable {
             client = Client.create(config);
         }
 
-        if (debug) {
+        if (debug)
+        {
             client.addFilter(new LoggingFilter());
         }
     }
@@ -91,14 +97,18 @@ public class YammerConnector implements Initialisable {
      * @param oauthVerifier The OAuth verifier code from Yammer.
      */
     @Processor
-    public void setOauthVerifier(String oauthVerifier) {
+    public void setOauthVerifier(String oauthVerifier)
+    {
         this.oauthVerifier = oauthVerifier;
 
         WebResource resource = client.resource("https://www.yammer.com/oauth/access_token");
         // Set the OAuth parameters
-        OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret).tokenSecret(oauthTokenSecret);
-        OAuthParameters params = new OAuthParameters().consumerKey(consumerKey).verifier(oauthVerifier)
-                .signatureMethod("PLAINTEXT").version("1.0");
+        OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret)
+            .tokenSecret(oauthTokenSecret);
+        OAuthParameters params = new OAuthParameters().consumerKey(consumerKey)
+            .verifier(oauthVerifier)
+            .signatureMethod("PLAINTEXT")
+            .version("1.0");
 
         params.put("oauth_token", oauthToken);
 
@@ -114,22 +124,27 @@ public class YammerConnector implements Initialisable {
         Form form = post.getEntity(Form.class);
         accessToken = form.getFirst("oauth_token");
         accessTokenSecret = form.getFirst("oauth_token_secret");
-        
-        logger.info("Got OAuth access tokens. Access token:"  + accessToken + " Access token secret:" + accessTokenSecret);
+
+        logger.info("Got OAuth access tokens. Access token:" + accessToken + " Access token secret:"
+                    + accessTokenSecret);
     }
 
     /**
-     * Start the OAuth request authorization process. This will request a token from Yammer and return
-     * a URL which the user can visit to authorize the connector for their account.
+     * Start the OAuth request authorization process. This will request a token from
+     * Yammer and return a URL which the user can visit to authorize the connector
+     * for their account.
+     * 
      * @return The user authorization URL.
      */
     @Processor
-    public String requestAuthorization() {
+    public String requestAuthorization()
+    {
         WebResource resource = client.resource("https://www.yammer.com/oauth/request_token");
         // Set the OAuth parameters
         OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret);
-        OAuthParameters params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1")
-                .version("1.0");
+        OAuthParameters params = new OAuthParameters().consumerKey(consumerKey)
+            .signatureMethod("HMAC-SHA1")
+            .version("1.0");
         // Create the OAuth client filter
         OAuthClientFilter filter = new OAuthClientFilter(client.getProviders(), params, secrets);
         // Add the filter to the resource
@@ -146,43 +161,52 @@ public class YammerConnector implements Initialisable {
         return "https://www.yammer.com/oauth/authorize?oauth_token=" + oauthToken;
     }
 
-    private void handleErrors(ClientResponse response) {
-        if (response.getStatus() >= 300) {
+    private void handleErrors(ClientResponse response)
+    {
+        if (response.getStatus() >= 300)
+        {
             String entity = response.getEntity(String.class);
             throw new RuntimeException("Got status: " + response.getStatus() + ".\nMessage: " + entity);
         }
     }
 
     @Processor
-    public List<Message> getMessages() {
+    public List<Message> getMessages()
+    {
         return getMessages("https://www.yammer.com/api/v1/messages.json");
     }
 
     @Processor
-    public List<Message> getSentMessages() {
+    public List<Message> getSentMessages()
+    {
         return getMessages("https://www.yammer.com/api/v1/messages/sent.json");
     }
 
     @Processor
-    public List<Message> getReceivedMessages() {
+    public List<Message> getReceivedMessages()
+    {
         return getMessages("https://www.yammer.com/api/v1/messages/received.json");
     }
 
     @Processor
-    public List<Message> getPrivateMessages() {
+    public List<Message> getPrivateMessages()
+    {
         return getMessages("https://www.yammer.com/api/v1/messages/private.json");
     }
 
     @Processor
-    public List<Message> getFollowingMessages() {
+    public List<Message> getFollowingMessages()
+    {
         return getMessages("https://www.yammer.com/api/v1/messages/following.json");
     }
 
-    private List<Message> getMessages(String url) {
+    private List<Message> getMessages(String url)
+    {
         ClientResponse response = oauthResource(url).get(ClientResponse.class);
         List<Message> messages = response.getEntity(Messages.class).getMessages();
 
-        if (messages == null) {
+        if (messages == null)
+        {
             return Collections.emptyList();
         }
         return messages;
@@ -190,81 +214,100 @@ public class YammerConnector implements Initialisable {
 
     /**
      * Creates a WebResource with the proper oauth authentication information.
+     * 
      * @param url
      * @return
      */
-    protected WebResource oauthResource(String url) {
+    protected WebResource oauthResource(String url)
+    {
         WebResource resource = client.resource(url);
-        OAuthParameters params = new OAuthParameters().signatureMethod(HMAC_SHA1.NAME).consumerKey(consumerKey)
-                .token(accessToken).version();
+        OAuthParameters params = new OAuthParameters().signatureMethod(HMAC_SHA1.NAME).consumerKey(
+            consumerKey).token(accessToken).version();
 
-        OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret).tokenSecret(accessTokenSecret);
+        OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret).tokenSecret(
+            accessTokenSecret);
 
         resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
         return resource;
     }
 
-    public Client getClient() {
+    public Client getClient()
+    {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(Client client)
+    {
         this.client = client;
     }
 
-    public String getConsumerKey() {
+    public String getConsumerKey()
+    {
         return consumerKey;
     }
 
-    public void setConsumerKey(String applicationKey) {
+    public void setConsumerKey(String applicationKey)
+    {
         this.consumerKey = applicationKey;
     }
 
-    public String getConsumerSecret() {
+    public String getConsumerSecret()
+    {
         return consumerSecret;
     }
 
-    public void setConsumerSecret(String applicationSecret) {
+    public void setConsumerSecret(String applicationSecret)
+    {
         this.consumerSecret = applicationSecret;
     }
 
-    public boolean isDebug() {
+    public boolean isDebug()
+    {
         return debug;
     }
 
-    public void setDebug(boolean debug) {
+    public void setDebug(boolean debug)
+    {
         this.debug = debug;
     }
 
-    public String getOauthTokenSecret() {
+    public String getOauthTokenSecret()
+    {
         return oauthTokenSecret;
     }
 
-    public void setOauthTokenSecret(String oauthTokenSecret) {
+    public void setOauthTokenSecret(String oauthTokenSecret)
+    {
         this.oauthTokenSecret = oauthTokenSecret;
     }
 
-    public String getOauthToken() {
+    public String getOauthToken()
+    {
         return oauthToken;
     }
 
-    public void setOauthToken(String oauthToken) {
+    public void setOauthToken(String oauthToken)
+    {
         this.oauthToken = oauthToken;
     }
 
-    public String getAccessToken() {
+    public String getAccessToken()
+    {
         return accessToken;
     }
 
-    public void setAccessToken(String token) {
+    public void setAccessToken(String token)
+    {
         this.accessToken = token;
     }
 
-    public String getAccessTokenSecret() {
+    public String getAccessTokenSecret()
+    {
         return accessTokenSecret;
     }
 
-    public void setAccessTokenSecret(String secret) {
+    public void setAccessTokenSecret(String secret)
+    {
         this.accessTokenSecret = secret;
     }
 
