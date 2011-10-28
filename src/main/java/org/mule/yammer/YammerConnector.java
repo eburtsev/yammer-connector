@@ -17,6 +17,10 @@ package org.mule.yammer;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.oauth.OAuth;
+import org.mule.api.annotations.oauth.OAuth2;
+import org.mule.api.annotations.oauth.OAuthConsumerKey;
+import org.mule.api.annotations.oauth.OAuthConsumerSecret;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.lifecycle.Initialisable;
@@ -63,20 +67,23 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author MuleSoft, Inc. 
  */
 @Module(name = "yammer", schemaVersion="2.0")
-public class YammerConnector  {
-
+@OAuth2(authorizationUrl = "https://www.yammer.com/dialog/oauth", accessTokenUrl = "https://www.yammer.com/oauth2/access_token")
+public class YammerConnector
+{
     protected transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * The OAuth consumer key 
      */
     @Configurable
+    @OAuthConsumerKey
     private String consumerKey;
 
     /**
      * The OAuth consumer secret 
      */
     @Configurable
+    @OAuthConsumerSecret
     private String consumerSecret;
 
     /**
