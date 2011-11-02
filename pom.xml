@@ -401,44 +401,50 @@ To authenticate your connector, do the following:
     </dependency>
     
     <!-- Jersey -->
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-jersey</artifactId>
-            <version>${mule.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>1.6</version>
-        </dependency>
-         <dependency>
-            <groupId>com.sun.jersey.oauth</groupId>
-            <artifactId>oauth-client</artifactId>
-            <version>1.1.1-ea</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey.oauth</groupId>
-            <artifactId>oauth-signature</artifactId>
-            <version>1.1.1-ea</version>
-        </dependency>
-        
-        
-        <!-- Json -->
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-json</artifactId>
-            <version>${mule.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- ???? -->
-                <dependency>
-          <groupId>org.htmlparser</groupId>
-          <artifactId>htmlparser</artifactId>
-          <version>1.6</version>
-          <type>jar</type>
-          <scope>compile</scope>
-        </dependency>
+    <dependency>
+        <groupId>org.mule.modules</groupId>
+        <artifactId>mule-module-jersey</artifactId>
+        <version>${mule.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-client</artifactId>
+        <version>1.6</version>
+    </dependency>
+     <dependency>
+        <groupId>com.sun.jersey.oauth</groupId>
+        <artifactId>oauth-client</artifactId>
+        <version>1.1.1-ea</version>
+    </dependency>
+    <dependency>
+        <groupId>com.sun.jersey.oauth</groupId>
+        <artifactId>oauth-signature</artifactId>
+        <version>1.1.1-ea</version>
+    </dependency>
+    
+    
+    <!-- Json -->
+    <dependency>
+        <groupId>org.mule.modules</groupId>
+        <artifactId>mule-module-json</artifactId>
+        <version>${mule.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <!-- ???? -->
+            <dependency>
+      <groupId>org.htmlparser</groupId>
+      <artifactId>htmlparser</artifactId>
+      <version>1.6</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
 
+    <!-- OAuth -->
+    <dependency>
+       <groupId>oauth.signpost</groupId>
+       <artifactId>signpost-core</artifactId>
+       <version>1.2.1.1</version>
+    </dependency>
   </dependencies>
   
        
