@@ -13,15 +13,23 @@ available to a user, such as the public, friends or private timeline. For exampl
 
     &lt;?xml version="1.0" encoding="UTF-8"?&gt;
     &lt;mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:spring="http://www.springframework.org/schema/beans"
-        xmlns:yammer="http://www.mulesoft.org/schema/mule/yammer"
-        xmlns:json="http://www.mulesoft.org/schema/mule/json"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                              http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
-                              http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.1/mule-json.xsd
-                              http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/1.0-SNAPSHOT/mule-yammer.xsd"&gt;
-                              
-        &lt;yammer:config consumerKey="${consumer.key}" consumerSecret="${consumer.secret}"/&gt;
+	    xmlns:spring="http://www.springframework.org/schema/beans"
+	    xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	    xmlns:yammer="http://www.mulesoft.org/schema/mule/yammer"
+	    xmlns:json="http://www.mulesoft.org/schema/mule/json"  xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	    xsi:schemaLocation="
+	          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
+	          http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.2/mule-scripting.xsd
+	          http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
+	          http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.2/mule-json.xsd
+	          http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd"&gt;
+        
+        &lt;http:connector name="connector.http.mule.default" enableCookies="true" keepAlive="true" /&gt;
+    
+        &lt;yammer:config consumerKey="${consumerKey}" consumerSecret="${consumerSecret}"&gt;
+             &lt;yammer:http-callback-config domain="localhost" remotePort="9090" localPort="9091" /&gt;
+        &lt;/yammer:config&gt;
         
         &lt;flow name="YammerTest"&gt;
             &lt;inbound-endpoint address="http://localhost:9002/get-statuses"/&gt;
@@ -32,41 +40,21 @@ available to a user, such as the public, friends or private timeline. For exampl
         &lt;/flow&gt;
         ....
         
-Authenticating with OAuth
--------------------------
-With OAuth 1.0, you must do a two step process to authenticate the connector. 
-First, request authorization from Yammer. Then, submit the OAuth verifier code back 
-to the connector.
+It's necessary to set in yammer (https://www.yammer.com/client_applications where you can create an application or edit it) the next Callback URL:
 
-You'll need to set up the following two flows to do this:
+    http://{host}:{port}/yammerCodeRetrievingPath
 
-    &lt;flow name="request-authorization"&gt;
-        &lt;inbound-endpoint address="http://localhost:9002/yammer/request-authorization"/&gt;
-        &lt;yammer:request-authorization/&gt;
-        &lt;message-properties-transformer&gt;
-            &lt;add-message-property key="http.status" value="302"/&gt;
-            &lt;add-message-property key="Location" value="#[payload]"/&gt;
-        &lt;/message-properties-transformer&gt;
-    &lt;/flow&gt;
+    where the {host} is the same host as the Website of the yammer application.
+
+Then you have to configure yammer:
+
+    &lt;http:connector name="connector.http.mule.default" enableCookies="true" keepAlive="true" /&gt;
     
-    &lt;flow name="set-oauth-verifier"&gt;
-        &lt;inbound-endpoint address="http://localhost:9002/yammer/set-oauth-verifier"/&gt;
-        &lt;logger /&gt;
-        &lt;yammer:set-oauth-verifier oauthVerifier="#[header:inbound:verifier]"/&gt;
-    &lt;/flow&gt;
+    &lt;yammer:config consumerKey="${consumerKey}" consumerSecret="${consumerSecret}"&gt;
+        &lt;yammer:http-callback-config domain="{host}" remotePort="SOME_PORT" localPort="{port}" /&gt;
+    &lt;/yammer:config&gt;
     
-The first flow will redirect you to the Yammer authorization page once the connector has
-requested an authentication token. The second flow will allow you to set the OAuth verifier code.
-
-To authenticate your connector, do the following:
-
-- [Create a Yammer account](http://yammer.com)
-- [Register your application](https://www.yammer.com/client_applications/new) with Yammer  
-- Set your OAuth consumer key and secret on your config element as shown above
-- Go to http://localhost:9002/yammer/request-authorization in your browser
-- You will be redirected to the Yammer authorization page. Click Authorize.
-- Take the resulting OAuth verifier code and go to http://localhost:9002/yammer/set-oauth-verifier?verifier=OAUTH_VERIFIER in your browser.
-- Your access token and secret will be logged to your application logs. You can use those to avoid future authentication setup by setting the accessToken and accessTokenSecret attributes on the connector.
+    where {host} and {port} are the same of the Callback URL used before.
 
     </description>
     <url>http://www.muleforge.org/projects/yammer-connector</url>

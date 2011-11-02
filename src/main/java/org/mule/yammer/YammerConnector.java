@@ -124,10 +124,9 @@ public class YammerConnector
     /**
      * Answers all messages in this network. Corresponds to the "Company Feed" tab on the website.
      * 
-     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:request-authorization}
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
      * 
      * @param accessToken OAuth access token
-     * @param accessTokenSecret OAuth access token secret
      * @return the list of {@link Message}s
      */
     @Processor
@@ -143,7 +142,6 @@ public class YammerConnector
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-sent-messages}
      * 
      * @param accessToken OAuth access token
-     * @param accessTokenSecret OAuth access token secret
      * @return the list of {@link Message}s
      */
     @Processor
@@ -159,7 +157,6 @@ public class YammerConnector
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-received-messages}
      * 
      * @param accessToken OAuth access token
-     * @param accessTokenSecret OAuth access token secret
      * @return the list of {@link Message}s
      */
     @Processor
@@ -175,7 +172,6 @@ public class YammerConnector
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-private-messages}
      * 
      * @param accessToken OAuth access token
-     * @param accessTokenSecret OAuth access token secret
      * @return the list of {@link Message}s
      */
     @Processor
@@ -190,7 +186,6 @@ public class YammerConnector
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-following-messages}
      * 
      * @param accessToken OAuth access token
-     * @param accessTokenSecret OAuth access token secret
      * @return the list of {@link Message}s
      */
     @Processor
@@ -227,7 +222,7 @@ public class YammerConnector
     {
         WebResource resource = client.resource(url+"?access_token="+accessToken);
         OAuthParameters params = new OAuthParameters().signatureMethod(HMAC_SHA1.NAME).consumerKey(
-            consumerKey).token(accessToken).version("1.0");
+            consumerKey).token(accessToken).version("2.0");
 
         OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 
