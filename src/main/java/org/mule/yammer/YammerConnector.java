@@ -60,6 +60,23 @@ import com.sun.jersey.oauth.signature.OAuthSecrets;
  *  <li>Retrieve private messages</li>
  *  <li>Retrieve sent messages</li>   
  * </ul>
+ * <p>
+ * It's necessary to set in yammer (https://www.yammer.com/client_applications where you can create an application or edit it) the next Callback URL:<br/>
+ *<br/>
+ *    http://{host}:{port}/yammerCodeRetrievingPath<br/>
+ *<br/>
+ *    where the {host} is the same host as the Website of the yammer application.<br/>
+ *<br/>
+ * Then you have to configure yammer:<br/>
+ *<br/>
+ *    &lt;http:connector name="connector.http.mule.default" enableCookies="true" keepAlive="true" /&gt;<br/>
+ *<br/>
+ *    &lt;yammer:config consumerKey="${consumerKey}" consumerSecret="${consumerSecret}"&gt;<br/>
+ *        &lt;yammer:http-callback-config domain="{host}" remotePort="SOME_PORT" localPort="{port}" /&gt;<br/>
+ *    &lt;/yammer:config&gt;<br/>
+ *<br/>
+ *    where {host} and {port} are the same of the Callback URL used before.<br/>
+ *</p>
  * 
  * @author MuleSoft, Inc. 
  */
