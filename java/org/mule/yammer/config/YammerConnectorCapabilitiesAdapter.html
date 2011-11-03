@@ -197,7 +197,9 @@
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/RequestAuthorizationMessageProcessor.html">RequestAuthorizationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/SetOauthVerifierMessageProcessor.html">SetOauthVerifierMessageProcessor</a></li>
           <li class="selected api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></li>
       </ul>
     </li>
               
@@ -409,6 +411,43 @@ Summary:
 
 
 
+<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-indirect" class="jd-expando-trigger closed"
+          ><img id="subclasses-indirect-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>Known Indirect Subclasses
+
+  <div id="subclasses-indirect">
+      <div id="subclasses-indirect-list"
+              class="jd-inheritedlinks"
+              
+              >
+          
+            
+              <a href="../../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a>,
+            
+              <a href="../../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a>
+            
+          
+      </div>
+      <div id="subclasses-indirect-summary"
+              style="display: none;"
+              >
+  <table class="jd-sumtable-expando">
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></td>
+              <td class="jd-descrcol" width="100%">A <code>YammerConnectorOAuth2Adapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that adds OAuth capabilites to the pojo.&nbsp;</td>
+          </tr>
+  </table>
+      </div>
+  </div>
+</td></tr></table>
+
 
 <div class="jd-descr">
 
@@ -492,30 +531,6 @@ Summary:
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#accessToken">accessToken</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth accessToken
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#accessTokenSecret">accessTokenSecret</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth accessToken secret
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
           Client</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#client">client</a></td>
           <td class="jd-descrcol" width="100%"></td>
@@ -564,39 +579,6 @@ Summary:
           
           Log</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#logger">logger</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#oauthToken">oauthToken</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#oauthTokenSecret">oauthTokenSecret</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#oauthVerifier">oauthVerifier</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -712,38 +694,6 @@ From class
             
             
             
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getAccessToken()">getAccessToken</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getAccessTokenSecret()">getAccessTokenSecret</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             Client</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -795,7 +745,7 @@ From class
             List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getFollowingMessages()">getFollowingMessages</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getFollowingMessages(java.lang.String)">getFollowingMessages</a></span>(String accessToken)</nobr>
         
         <div class="jd-descrdiv">Answers the list of messages followed by the logged-in user.</div>
   
@@ -813,7 +763,7 @@ From class
             List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getMessages()">getMessages</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getMessages(java.lang.String)">getMessages</a></span>(String accessToken)</nobr>
         
         <div class="jd-descrdiv">Answers all messages in this network.</div>
   
@@ -828,42 +778,10 @@ From class
             
             
             
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getOauthToken()">getOauthToken</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getOauthTokenSecret()">getOauthTokenSecret</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getPrivateMessages()">getPrivateMessages</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getPrivateMessages(java.lang.String)">getPrivateMessages</a></span>(String accessToken)</nobr>
         
         <div class="jd-descrdiv">Answers the whole list of private Messages (aka Direct Messages) for the logged-in user.</div>
   
@@ -881,7 +799,7 @@ From class
             List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getReceivedMessages()">getReceivedMessages</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getReceivedMessages(java.lang.String)">getReceivedMessages</a></span>(String accessToken)</nobr>
         
         <div class="jd-descrdiv">Answers the list of messages received by the logged-in user.</div>
   
@@ -899,7 +817,7 @@ From class
             List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getSentMessages()">getSentMessages</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getSentMessages(java.lang.String)">getSentMessages</a></span>(String accessToken)</nobr>
         
         <div class="jd-descrdiv">Answers the whole list of messages sent by the current user.</div>
   
@@ -949,7 +867,7 @@ From class
             WebResource</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#oauthResource(java.lang.String)">oauthResource</a></span>(String url)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#oauthResource(java.lang.String, java.lang.String)">oauthResource</a></span>(String url, String accessToken)</nobr>
         
         <div class="jd-descrdiv">Creates a WebResource with the proper oauth authentication information.</div>
   
@@ -958,56 +876,6 @@ From class
 
 	 
     <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#requestAuthorization()">requestAuthorization</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Start the OAuth request authorization process.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setAccessToken(java.lang.String)">setAccessToken</a></span>(String token)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setAccessTokenSecret(java.lang.String)">setAccessTokenSecret</a></span>(String secret)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1023,7 +891,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1039,7 +907,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1055,7 +923,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1067,56 +935,6 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setDebug(boolean)">setDebug</a></span>(boolean debug)</nobr>
         
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setOauthToken(java.lang.String)">setOauthToken</a></span>(String oauthToken)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setOauthTokenSecret(java.lang.String)">setOauthTokenSecret</a></span>(String oauthTokenSecret)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setOauthVerifier(java.lang.String)">setOauthVerifier</a></span>(String oauthVerifier)</nobr>
-        
-        <div class="jd-descrdiv">Set the OAuth verifier after it has been retrieved via requestAuthorization.</div>
-  
   </td></tr>
 
 

@@ -72,7 +72,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.ico" />
 <title>
 
-  GetSentMessagesMessageProcessor
+  YammerConnectorHttpCallbackAdapter
 
 
 | Mule Yammer Connector
@@ -193,11 +193,11 @@
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetMessagesMessageProcessor.html">GetMessagesMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetPrivateMessagesMessageProcessor.html">GetPrivateMessagesMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetReceivedMessagesMessageProcessor.html">GetReceivedMessagesMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetSentMessagesMessageProcessor.html">GetSentMessagesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetSentMessagesMessageProcessor.html">GetSentMessagesMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/RequestAuthorizationMessageProcessor.html">RequestAuthorizationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/SetOauthVerifierMessageProcessor.html">SetOauthVerifierMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a></li>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></li>
       </ul>
@@ -262,6 +262,22 @@
   
   
   
+   
+  
+  
+
+  
+   
+  
+  
+  
+  
+
+  
+   
+  
+  
+  
   
 
   
@@ -296,13 +312,6 @@
   
   
    
-  
-  
-  
-
-  
-   
-  
   
   
   
@@ -325,6 +334,9 @@ Summary:
   &#124; <a href="#lfields">Fields</a>
   
 
+
+  &#124; <a href="#inhfields">Inherited Fields</a>
+  
 
 
   &#124; <a href="#pubctors">Ctors</a>
@@ -361,12 +373,24 @@ Summary:
      
     
     class
-<h1>GetSentMessagesMessageProcessor</h1>
+<h1>YammerConnectorHttpCallbackAdapter</h1>
 
 
 
   
-    extends Object<br/>
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+    extends <a href="../../../../../java/org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a><br/>
   
   
   
@@ -375,19 +399,7 @@ Summary:
   
       implements 
       
-        FlowConstructAware 
-      
-        MuleContextAware 
-      
-        Disposable 
-      
         Initialisable 
-      
-        Startable 
-      
-        Stoppable 
-      
-        MessageProcessor 
       
   
   
@@ -403,7 +415,7 @@ Summary:
 
     <tr>
         
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="5" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -411,7 +423,43 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.yammer.config.GetSentMessagesMessageProcessor</td>
+        <td colspan="4" class="jd-inheritance-class-cell"><a href="../../../../../java/org/mule/yammer/YammerConnector.html">org.mule.yammer.YammerConnector</a></td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="3" class="jd-inheritance-class-cell"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">org.mule.yammer.config.YammerConnectorCapabilitiesAdapter</a></td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">org.mule.yammer.config.YammerConnectorLifecycleAdapter</a></td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.yammer.config.YammerConnectorHttpCallbackAdapter</td>
     </tr>
     
 
@@ -420,16 +468,42 @@ Summary:
 
 
 
+<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-direct" class="jd-expando-trigger closed"
+          ><img id="subclasses-direct-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>Known Direct Subclasses
+
+  <div id="subclasses-direct">
+      <div id="subclasses-direct-list"
+              class="jd-inheritedlinks"
+              
+              >
+          
+            
+              <a href="../../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a>
+            
+          
+      </div>
+      <div id="subclasses-direct-summary"
+              style="display: none;"
+              >
+  <table class="jd-sumtable-expando">
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></td>
+              <td class="jd-descrcol" width="100%">A <code>YammerConnectorOAuth2Adapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that adds OAuth capabilites to the pojo.&nbsp;</td>
+          </tr>
+  </table>
+      </div>
+  </div>
+</td></tr></table>
+
 
 
 
 <div class="jd-descr">
 
-
-<h2>Class Overview</h2>
-<p>GetSentMessagesMessageProcessor invokes the <code><a href="../../../../../java/org/mule/yammer/YammerConnector.html#getSentMessages(java.lang.String)">getSentMessages(java.lang.String)</a></code> method in <code><a href="../../../../../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
- 
-</p>
 
 
 
@@ -476,6 +550,10 @@ Summary:
 <table id="inhconstants" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Constants</div></th></tr>
+
+
+
+
 
 
 
@@ -607,8 +685,6 @@ org.mule.api.lifecycle.Stoppable
 </td></tr>
 
 
-
-
 </table>
 
 
@@ -622,10 +698,32 @@ org.mule.api.lifecycle.Stoppable
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
+          static
+          final
+          Logger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#LOGGER">LOGGER</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#async">async</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#_accessTokenType">_accessTokenType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#domain">domain</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -635,8 +733,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#accessToken">accessToken</a></td>
+          Integer</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#localPort">localPort</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -646,98 +744,9 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          ExpressionManager</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#expressionManager">expressionManager</a></td>
-          <td class="jd-descrcol" width="100%">Mule Expression Manager
- 
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          FlowConstruct</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#flowConstruct">flowConstruct</a></td>
-          <td class="jd-descrcol" width="100%">Flow construct
- 
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          static
-          
-          Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#logger">logger</a></td>
+          Integer</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#remotePort">remotePort</a></td>
           <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#moduleObject">moduleObject</a></td>
-          <td class="jd-descrcol" width="100%">Module object
- 
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#muleContext">muleContext</a></td>
-          <td class="jd-descrcol" width="100%">Mule Context
- 
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#patternInfo">patternInfo</a></td>
-          <td class="jd-descrcol" width="100%">Mule Pattern Info
- 
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          AtomicInteger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#retryCount">retryCount</a></td>
-          <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
- 
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#retryMax">retryMax</a></td>
-          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
       </tr>
       
     
@@ -746,6 +755,111 @@ org.mule.api.lifecycle.Stoppable
 
 
 
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="inhfields" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Fields</div></th></tr>
+
+
+
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.yammer.YammerConnector" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.mule.yammer.YammerConnector-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From class
+<a href="../../../../../org/mule/yammer/YammerConnector.html">org.mule.yammer.YammerConnector</a>
+<div id="inherited-fields-org.mule.yammer.YammerConnector">
+  <div id="inherited-fields-org.mule.yammer.YammerConnector-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-fields-org.mule.yammer.YammerConnector-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Client</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#client">client</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#consumerKey">consumerKey</a></td>
+          <td class="jd-descrcol" width="100%">The OAuth consumer key 
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#consumerSecret">consumerSecret</a></td>
+          <td class="jd-descrcol" width="100%">The OAuth consumer secret 
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#debug">debug</a></td>
+          <td class="jd-descrcol" width="100%">If connector should be run in debug mode.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Log</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/yammer/YammerConnector.html#logger">logger</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
 
 
 
@@ -766,7 +880,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#GetSentMessagesMessageProcessor()">GetSentMessagesMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#YammerConnectorHttpCallbackAdapter()">YammerConnectorHttpCallbackAdapter</a></span>()</nobr>
         
   </td></tr>
 
@@ -792,11 +906,15 @@ org.mule.api.lifecycle.Stoppable
             
             
             
-            void</nobr>
+            Boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#getAsync()">getAsync</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Retrieves async
+ 
+</div>
+  
   </td></tr>
 
 
@@ -808,12 +926,14 @@ org.mule.api.lifecycle.Stoppable
             
             
             
-            void</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#getDomain()">getDomain</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
+        <div class="jd-descrdiv">Retrieves domain
+ 
+</div>
   
   </td></tr>
 
@@ -826,12 +946,14 @@ org.mule.api.lifecycle.Stoppable
             
             
             
-            MuleEvent</nobr>
+            Integer</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#getLocalPort()">getLocalPort</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
+        <div class="jd-descrdiv">Retrieves localPort
+ 
+</div>
   
   </td></tr>
 
@@ -844,48 +966,14 @@ org.mule.api.lifecycle.Stoppable
             
             
             
-            void</nobr>
+            Integer</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#setAccessToken(java.lang.Object)">setAccessToken</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#getRemotePort()">getRemotePort</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Sets accessToken</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
-        
-        <div class="jd-descrdiv">Sets flow construct</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
-        
-        <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
+        <div class="jd-descrdiv">Retrieves remotePort
+ 
+</div>
   
   </td></tr>
 
@@ -901,10 +989,8 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#initialise()">initialise</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Set the Mule context</div>
-  
   </td></tr>
 
 
@@ -919,9 +1005,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#setAsync(java.lang.Boolean)">setAsync</a></span>(Boolean value)</nobr>
         
-        <div class="jd-descrdiv">Sets retryMax</div>
+        <div class="jd-descrdiv">Sets async</div>
   
   </td></tr>
 
@@ -937,8 +1023,10 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#start()">start</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#setDomain(java.lang.String)">setDomain</a></span>(String value)</nobr>
         
+        <div class="jd-descrdiv">Sets domain</div>
+  
   </td></tr>
 
 
@@ -953,8 +1041,28 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/yammer/config/GetSentMessagesMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#setLocalPort(java.lang.Integer)">setLocalPort</a></span>(Integer value)</nobr>
         
+        <div class="jd-descrdiv">Sets localPort</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html#setRemotePort(java.lang.Integer)">setRemotePort</a></span>(Integer value)</nobr>
+        
+        <div class="jd-descrdiv">Sets remotePort</div>
+  
   </td></tr>
 
 
@@ -971,6 +1079,420 @@ org.mule.api.lifecycle.Stoppable
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.yammer.config.YammerConnectorLifecycleAdapter" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.yammer.config.YammerConnectorLifecycleAdapter-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../../../../org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">org.mule.yammer.config.YammerConnectorLifecycleAdapter</a>
+
+<div id="inherited-methods-org.mule.yammer.config.YammerConnectorLifecycleAdapter">
+  <div id="inherited-methods-org.mule.yammer.config.YammerConnectorLifecycleAdapter-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.yammer.config.YammerConnectorLifecycleAdapter-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorLifecycleAdapter.html#dispose()">dispose</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorLifecycleAdapter.html#initialise()">initialise</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorLifecycleAdapter.html#start()">start</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorLifecycleAdapter.html#stop()">stop</a></span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.yammer.config.YammerConnectorCapabilitiesAdapter" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.yammer.config.YammerConnectorCapabilitiesAdapter-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../../../../org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">org.mule.yammer.config.YammerConnectorCapabilitiesAdapter</a>
+
+<div id="inherited-methods-org.mule.yammer.config.YammerConnectorCapabilitiesAdapter">
+  <div id="inherited-methods-org.mule.yammer.config.YammerConnectorCapabilitiesAdapter-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.yammer.config.YammerConnectorCapabilitiesAdapter-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html#isCapableOf(org.mule.api.Capability)">isCapableOf</a></span>(Capability capability)</nobr>
+        
+        <div class="jd-descrdiv">Returns true if this module implements such capability
+ 
+</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.yammer.YammerConnector" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.yammer.YammerConnector-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../../../../org/mule/yammer/YammerConnector.html">org.mule.yammer.YammerConnector</a>
+
+<div id="inherited-methods-org.mule.yammer.YammerConnector">
+  <div id="inherited-methods-org.mule.yammer.YammerConnector-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.yammer.YammerConnector-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Client</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getClient()">getClient</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getConsumerKey()">getConsumerKey</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getConsumerSecret()">getConsumerSecret</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getFollowingMessages(java.lang.String)">getFollowingMessages</a></span>(String accessToken)</nobr>
+        
+        <div class="jd-descrdiv">Answers the list of messages followed by the logged-in user.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getMessages(java.lang.String)">getMessages</a></span>(String accessToken)</nobr>
+        
+        <div class="jd-descrdiv">Answers all messages in this network.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getPrivateMessages(java.lang.String)">getPrivateMessages</a></span>(String accessToken)</nobr>
+        
+        <div class="jd-descrdiv">Answers the whole list of private Messages (aka Direct Messages) for the logged-in user.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getReceivedMessages(java.lang.String)">getReceivedMessages</a></span>(String accessToken)</nobr>
+        
+        <div class="jd-descrdiv">Answers the list of messages received by the logged-in user.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;<a href="../../../../../java/org/mule/yammer/Message.html">Message</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#getSentMessages(java.lang.String)">getSentMessages</a></span>(String accessToken)</nobr>
+        
+        <div class="jd-descrdiv">Answers the whole list of messages sent by the current user.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#initialise()">initialise</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#isDebug()">isDebug</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            WebResource</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#oauthResource(java.lang.String, java.lang.String)">oauthResource</a></span>(String url, String accessToken)</nobr>
+        
+        <div class="jd-descrdiv">Creates a WebResource with the proper oauth authentication information.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setClient(com.sun.jersey.api.client.Client)">setClient</a></span>(Client client)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setConsumerKey(java.lang.String)">setConsumerKey</a></span>(String applicationKey)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setConsumerSecret(java.lang.String)">setConsumerSecret</a></span>(String applicationSecret)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/yammer/YammerConnector.html#setDebug(boolean)">setDebug</a></span>(boolean debug)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 
 <tr class="api apilevel-" >
@@ -1177,19 +1699,19 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.construct.FlowConstructAware" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.construct.FlowConstructAware-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.Capabilities" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.Capabilities-trigger"
           src="../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.mule.api.construct.FlowConstructAware
+  org.mule.api.Capabilities
 
-<div id="inherited-methods-org.mule.api.construct.FlowConstructAware">
-  <div id="inherited-methods-org.mule.api.construct.FlowConstructAware-list"
+<div id="inherited-methods-org.mule.api.Capabilities">
+  <div id="inherited-methods-org.mule.api.Capabilities-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.api.construct.FlowConstructAware-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.api.Capabilities-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1202,52 +1724,10 @@ From interface
             
             
             
-            void</nobr>
+            boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setFlowConstruct</span>(FlowConstruct arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.context.MuleContextAware" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.context.MuleContextAware-trigger"
-          src="../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.context.MuleContextAware
-
-<div id="inherited-methods-org.mule.api.context.MuleContextAware">
-  <div id="inherited-methods-org.mule.api.context.MuleContextAware-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.context.MuleContextAware-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setMuleContext</span>(MuleContext arg0)</nobr>
+        <span class="sympad">isCapableOf</span>(Capability arg0)</nobr>
         
   </td></tr>
 
@@ -1426,48 +1906,6 @@ From interface
 </td></tr>
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.processor.MessageProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.processor.MessageProcessor-trigger"
-          src="../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.processor.MessageProcessor
-
-<div id="inherited-methods-org.mule.api.processor.MessageProcessor">
-  <div id="inherited-methods-org.mule.api.processor.MessageProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.processor.MessageProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            MuleEvent</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">process</span>(MuleEvent arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
 </table>
 
 
@@ -1500,7 +1938,67 @@ From interface
 
 
 
-<A NAME="_accessTokenType"></A>
+<A NAME="LOGGER"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+        static 
+        final 
+        Logger
+      </span>
+        LOGGER
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="async"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Boolean
+      </span>
+        async
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="domain"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1510,7 +2008,7 @@ From interface
          
         String
       </span>
-        _accessTokenType
+        domain
     </h4>
       <div class="api-level">
         
@@ -1530,7 +2028,7 @@ From interface
 
 
 
-<A NAME="accessToken"></A>
+<A NAME="localPort"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1538,9 +2036,9 @@ From interface
         private 
          
          
-        Object
+        Integer
       </span>
-        accessToken
+        localPort
     </h4>
       <div class="api-level">
         
@@ -1560,7 +2058,7 @@ From interface
 
 
 
-<A NAME="expressionManager"></A>
+<A NAME="remotePort"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1568,73 +2066,9 @@ From interface
         private 
          
          
-        ExpressionManager
+        Integer
       </span>
-        expressionManager
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Mule Expression Manager
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="flowConstruct"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        FlowConstruct
-      </span>
-        flowConstruct
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Flow construct
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="logger"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-        static 
-         
-        Logger
-      </span>
-        logger
+        remotePort
     </h4>
       <div class="api-level">
         
@@ -1647,166 +2081,6 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="moduleObject"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        moduleObject
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Module object
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="muleContext"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        MuleContext
-      </span>
-        muleContext
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Mule Context
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="patternInfo"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        TemplateParser.PatternInfo
-      </span>
-        patternInfo
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Mule Pattern Info
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="retryCount"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        AtomicInteger
-      </span>
-        retryCount
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Variable used to track how many retries we have attempted on this message processor
- 
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="retryMax"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        int
-      </span>
-        retryMax
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Maximum number of retries that can be attempted.
- 
-</p></div>
 
     
     </div>
@@ -1823,7 +2097,7 @@ From interface
 
 
 
-<A NAME="GetSentMessagesMessageProcessor()"></A>
+<A NAME="YammerConnectorHttpCallbackAdapter()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1835,7 +2109,7 @@ From interface
          
         
       </span>
-      <span class="sympad">GetSentMessagesMessageProcessor</span>
+      <span class="sympad">YammerConnectorHttpCallbackAdapter</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1869,7 +2143,7 @@ From interface
 
 
 
-<A NAME="dispose()"></A>
+<A NAME="getAsync()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1879,9 +2153,9 @@ From interface
          
          
          
-        void
+        Boolean
       </span>
-      <span class="sympad">dispose</span>
+      <span class="sympad">getAsync</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1894,7 +2168,108 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves async
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getDomain()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getDomain</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves domain
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getLocalPort()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Integer
+      </span>
+      <span class="sympad">getLocalPort</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves localPort
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getRemotePort()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Integer
+      </span>
+      <span class="sympad">getRemotePort</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves remotePort
+ 
+</p></div>
 
     </div>
 </div>
@@ -1925,71 +2300,13 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Obtains the expression manager from the Mule context and initialises the connector. If a target object  has not been set already it will search the Mule registry for a default one.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>InitialisationException</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
 
 
-<A NAME="process(org.mule.api.MuleEvent)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        MuleEvent
-      </span>
-      <span class="sympad">process</span>
-      <span class="normal">(MuleEvent event)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Invokes the MessageProcessor.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>event</td>
-          <td>MuleEvent to be processed</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>MuleException</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setAccessToken(java.lang.Object)"></A>
+<A NAME="setAsync(java.lang.Boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2001,8 +2318,8 @@ From interface
          
         void
       </span>
-      <span class="sympad">setAccessToken</span>
-      <span class="normal">(Object value)</span>
+      <span class="sympad">setAsync</span>
+      <span class="normal">(Boolean value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2014,7 +2331,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets accessToken</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets async</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -2030,7 +2347,7 @@ From interface
 </div>
 
 
-<A NAME="setFlowConstruct(org.mule.api.construct.FlowConstruct)"></A>
+<A NAME="setDomain(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2042,8 +2359,8 @@ From interface
          
         void
       </span>
-      <span class="sympad">setFlowConstruct</span>
-      <span class="normal">(FlowConstruct flowConstruct)</span>
+      <span class="sympad">setDomain</span>
+      <span class="normal">(String value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2055,130 +2372,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets flow construct</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>flowConstruct</td>
-          <td>Flow construct to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setModuleObject(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setModuleObject</span>
-      <span class="normal">(Object moduleObject)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets the instance of the object under which the processor will execute</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>moduleObject</td>
-          <td>Instace of the module
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setMuleContext(org.mule.api.MuleContext)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setMuleContext</span>
-      <span class="normal">(MuleContext context)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Set the Mule context</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>context</td>
-          <td>Mule context to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setRetryMax(int)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setRetryMax</span>
-      <span class="normal">(int value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets retryMax</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets domain</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -2194,7 +2388,7 @@ From interface
 </div>
 
 
-<A NAME="start()"></A>
+<A NAME="setLocalPort(java.lang.Integer)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2206,8 +2400,8 @@ From interface
          
         void
       </span>
-      <span class="sympad">start</span>
-      <span class="normal">()</span>
+      <span class="sympad">setLocalPort</span>
+      <span class="normal">(Integer value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2219,13 +2413,14 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets localPort</p></div>
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
         <tr>
-            <th>MuleException</td>
-            <td></td>
+          <th>value</td>
+          <td>Value to set
+</td>
         </tr>
       </table>
   </div>
@@ -2234,7 +2429,7 @@ From interface
 </div>
 
 
-<A NAME="stop()"></A>
+<A NAME="setRemotePort(java.lang.Integer)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2246,8 +2441,8 @@ From interface
          
         void
       </span>
-      <span class="sympad">stop</span>
-      <span class="normal">()</span>
+      <span class="sympad">setRemotePort</span>
+      <span class="normal">(Integer value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2259,13 +2454,14 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets remotePort</p></div>
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
         <tr>
-            <th>MuleException</td>
-            <td></td>
+          <th>value</td>
+          <td>Value to set
+</td>
         </tr>
       </table>
   </div>
