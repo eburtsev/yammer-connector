@@ -1,13 +1,5 @@
-<!-- BEGIN_INCLUDE(yammer:set-oauth-verifier) -->
-<yammer:set-oauth-verifier oauthVerifier="#[header:inbound:verifier]"/>
-<!-- END_INCLUDE(yammer:set-oauth-verifier) -->
-
-<!-- BEGIN_INCLUDE(yammer:request-authorization) -->
-<yammer:request-authorization/>
-<!-- END_INCLUDE(yammer:request-authorization) -->
-
-<!-- BEGIN_INCLUDE(yammer:request-authorization) -->
-<yammer:request-authorization/>
+<!-- BEGIN_INCLUDE(yammer:get-messages) -->
+<yammer:get-messages/>
 <!-- END_INCLUDE(yammer:request-authorization) -->
 
 <!-- BEGIN_INCLUDE(yammer:get-sent-messages) -->

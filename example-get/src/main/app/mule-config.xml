@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule Yammer Cloud Connector
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+    The software in this package is published under the terms of the CPAL v1.0
+    license, a copy of which has been included with this distribution in the
+    LICENSE.txt file.
+
+-->
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:spring="http://www.springframework.org/schema/beans"
+  xmlns:http="http://www.mulesoft.org/schema/mule/http"
+  xmlns:yammer="http://www.mulesoft.org/schema/mule/yammer"
+  xmlns:json="http://www.mulesoft.org/schema/mule/json"  xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
+        http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.2/mule-scripting.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.2/mule-json.xsd
+        http://www.mulesoft.org/schema/mule/yammer http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd">
+        
+    <http:connector name="connector.http.mule.default" enableCookies="true" keepAlive="true" />
+    
+    <yammer:config consumerKey="${consumerKey}" consumerSecret="${consumerSecret}">
+         <yammer:http-callback-config domain="localhost" remotePort="9090" localPort="9091" />
+    </yammer:config>
+        
+    <flow name="YammerTest">
+        <inbound-endpoint address="http://localhost:9090/get-statuses"/>
+        <yammer:get-messages/>
+        <json:object-to-json-transformer/>
+    </flow>
+    
+        <flow name="YammerTest2">
+        <inbound-endpoint address="http://localhost:9090/get-sent-statuses"/>
+        <yammer:get-sent-messages/>
+        <json:object-to-json-transformer/>
+    </flow>
+</mule>

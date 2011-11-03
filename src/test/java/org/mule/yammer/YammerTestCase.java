@@ -31,8 +31,8 @@ public class YammerTestCase extends Assert {
         connector.setConsumerKey(System.getProperty("consumer.key"));
         connector.setConsumerSecret(System.getProperty("consumer.secret"));
         
-        connector.setAccessToken(System.getProperty("token"));
-        connector.setAccessTokenSecret(System.getProperty("secret"));
+        String token = System.getProperty("token");
+        //String secret = System.getProperty("secret");
         
         connector.setDebug(true);
         connector.initialise();
@@ -44,16 +44,16 @@ public class YammerTestCase extends Assert {
         // String oauthVerifier = getOauthVerifierFromSystemIn();
         // connector.setOauthVerifier(oauthVerifier);
 
-        List<Message> messages = connector.getMessages();
+        List<Message> messages = connector.getMessages(token);
         assertTrue(messages.size() > 0);
         
-        messages = connector.getSentMessages();
+        messages = connector.getSentMessages(token);
         assertTrue(messages.size() > 0);
         
-        messages = connector.getPrivateMessages();
+        messages = connector.getPrivateMessages(token);
 //        assertTrue(messages.size() > 0);
         
-        messages = connector.getFollowingMessages();
+        messages = connector.getFollowingMessages(token);
         assertTrue(messages.size() > 0);
         System.out.println(messages);
     }
