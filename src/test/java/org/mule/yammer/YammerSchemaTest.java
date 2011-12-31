@@ -10,10 +10,7 @@
 
 package org.mule.yammer;
 
-import org.mule.tck.junit4.FunctionalTestCase;
-
-import org.junit.Test;
-
+import org.mule.tck.FunctionalTestCase;
 
 public class YammerSchemaTest extends FunctionalTestCase {
 
@@ -22,11 +19,7 @@ public class YammerSchemaTest extends FunctionalTestCase {
         return "yammer-schema-test.xml";
     }
 
-    /**
-     * Tests that the schema can be parsed 
-     */
-    @Test
-    public void canParse() throws Exception {
-        // nothing. will fail if schema can not parse 
+    public void testCanParse() throws Exception {
+        // nothing. will fail if schema ca gutierrez 674 n not parse
     }
 }
