@@ -111,15 +111,19 @@
       <span id="masthead-title">Mule Yammer Connector</span>
     
     <ul id="header-tabs" class="mule">
+    
     	<li id="guide"><a href="../guide/install.html">
 	    	<span class="en">Install Guide</span>
     	</a></li>
+    
     	<li id="java"><a href="../java/packages.html">
-	    	<span class="en">Java API</span>
+	    	<span class="en">Java API Reference</span>
     	</a></li>
+    
     	<li id="mule"><a href="../mule/modules.html">
-	    	<span class="en">Mule API</span>
+	    	<span class="en">Mule API Reference</span>
     	</a></li>
+    
     </ul>
     </div>
     <div id="headerRight">
@@ -250,7 +254,7 @@ Summary:
     &lt;/yammer:config&gt;<br/>
 <br/>
     where {host} and {port} are the same of the Callback URL used before.<br/>
-</p><br/></p>
+</p></p>
 
 
 </div><!-- jd-descr -->
@@ -424,6 +428,122 @@ specify which configuration to use.</p>
 
 
 
+<!-- ========= OAUTH DETAIL ======== -->
+<h2>OAuth</h2>
+<p>This connector uses OAuth as an authorization and authentication mechanism. All the message processors or sources that require the connector
+to be authorized by the service provider will throw a NotAuthorizedException until the connector is authorized properly.</p>
+<p>Authorizing the connector is a simple process of calling:</p>
+<pre>
+    &lt;yammer:authorize/&gt;
+</pre>
+<p>The call to authorize message processor must be made from a message coming from an HTTP inbound endpoint as the authorize process will
+reply with a redirect to the service provider. The following is an example of how to use it in a flow with an HTTP inbound endpoint:</p>
+<pre>
+    &lt;flow name="authorizationAndAuthenticationFlow"&gt;
+    &lt;http:inbound-endpoint host="localhost" port="8080" path="oauth-authorize"/&gt;
+    &lt;yammer:authorize/&gt;
+    &lt;/flow&gt;
+</pre>
+<p>If you hit that endpoint via a web-browser it will initiate the OAuth dance, redirecting the user to the service provider page
+and creating a callback endpoint so the service provider can call us back once the user has been authenticated. Once the callback
+gets called then the connector will switch to an authorized state and any message processor or source that requires authentication
+can be called.</p>
+<h3>Callback Customization</h3>
+<p>As mentioned earlier once authorize gets called and before we redirect the user to the service provider we create a callback
+endpoint. The callback endpoint will get called automatically by the service provider once the user is authenticated and he
+grants authorization to the connector to access his private information.</p>
+<p>The callback can be customized in the config element of the this connector as follows:</p>
+<pre>
+    &lt;yammer:config&gt;
+        &lt;yammer:oauth-callback-config domain="${fullDomain}" localPort="${http.port}" remotePort="80"/&gt;
+    &lt;/yammer:config&gt;
+</pre>
+<p>The <i>oauth-callback-config</i> element can be used to customize the endpoint that gets created for the callback. It
+features the following attributes:</p>
+<table id="lconfig" class="jd-sumtable">
+<tr><th colspan="12">OAuth Callback Config Attributes</th></tr>
+<tr><th>Name</th><th>Description</th></tr>
+<tr class="api" >
+<td class="jd-linkcol"><nobr>domain</nobr></td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The domain portion of the callback URL. This is usually something like xxx.muleion.com if you are deploying to iON for example.</td>
+</tr>
+<tr class="api" >
+<td class="jd-linkcol"><nobr>localPort</nobr></td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The local port number that the endpoint will listen on. Normally 80, in the case of Mule iON you can use the environment variable ${http.port}.</td>
+</tr>
+<tr class="api" >
+<td class="jd-linkcol"><nobr>remotePort</nobr></td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This is the port number that we will tell the service provider we are listening on. It is usually the same as localPort but it is separated in case your deployment features port forwarding or a proxy.</td>
+</tr>
+</table>
+<p class="caution">The example shown above is what the configuration would look like if your app would be deployed to iON.</p>
+<h3>Saving and Restoring State</h3>
+<p>Once the service providers hits the callback it will do so in way that state information it is also sent. This state information
+is later used by the connector on each call made to the service provider to let him know that we have completed the authorization
+and authentication process.<p>
+<p>The state information is currently held in-memory but the connector offers hooks to save/restore this state. The ammount of information
+that needs to be saved and/or restored varies between version of the OAuth specification. At the bare minimum for OAuth 1.0a that needs
+to be the OAuth access token and OAuth access token secret.</p>
+<p>The following is an example of how to log the access token and access token secret.<p>
+<pre>
+    &lt;yammer:config&gt;
+        &lt;yammer:save-oauth-access-token&gt;
+            &lt;logger level="INFO" message="Received access token #[header:INBOUND:OAuthAccessToken] and #[header:INBOUND:OAuthAccessTokenSecret]"/&gt;
+        &lt;/yammer:save-oauth-access-token&gt;
+    &lt;/yammer:config&gt;
+</pre>
+<p>The <i>save-oauth-access-token</i> is a message processor chain and you can add inside of it as many message processors as you want. The chain will
+be called with special inbound properties in the message which the information that needs saved.</p>
+<p>Restoring the information is equally simple:</p>
+<pre>
+    &lt;yammer:config&gt;
+        &lt;yammer:restore-oauth-access-token&gt;
+            &lt;message-properties-transformer&gt;
+                &lt;add-message-property key="OAuthAccessToken" value="123"/&gt;
+                &lt;add-message-property key="OAuthAccessTokenSecret" value="567"/&gt;
+            &lt;/message-properties-transformer&gt;
+        &lt;/yammer:restore-oauth-access-token&gt;
+    &lt;/yammer:config&gt;
+</pre>
+<p>The example above does not do anything useful expect hardcode the access token and the token secret to 123 and 567 respectively. Just like
+<i>save-oauth-access-token</i>, <i>restore-oauth-access-token</i> is another message processor chain. Once the chain is done executing
+we will extract the OAuth access token property and OAuth access token secret property values.</p>
+<p>The following shows a full example on how to save and restore using Mule ObjectStore Module to store the information inside an object store.<p>
+<pre>
+&lt;mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:yammer="http://www.mulesoft.org/schema/mule/yammer"
+      xmlns:objectstore="http://www.mulesoft.org/schema/mule/objectstore"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core
+               http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/objectstore
+               http://www.mulesoft.org/schema/mule/objectstore/1.0/mule-objectstore.xsd
+               http://www.mulesoft.org/schema/mule/yammer
+               http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd"&gt;
+
+    &lt;yammer:config&gt;
+        &lt;yammer:save-oauth-access-token&gt;
+            &lt;objectstore:store key="OAuthAccessToken" value="#[header:INBOUND:OAuthAccessToken]"/&gt;
+            &lt;objectstore:store key="OAuthAccessTokenSecret" value="#[header:INBOUND:OAuthAccessTokenSecret]"/&gt;
+        &lt;/yammer:save-oauth-access-token&gt;
+        &lt;yammer:restore-oauth-access-token&gt;
+            &lt;enricher target="#[header:OAuthAccessToken]"&gt;
+                &lt;objectstore:retrieve key="OAuthAccessToken"/&gt;
+            &lt;/enricher&gt;
+            &lt;enricher target="#[header:OAuthAccessTokenSecret]"&gt;
+                &lt;objectstore:retrieve key="OAuthAccessTokenSecret"/&gt;
+            &lt;/enricher&gt;
+        &lt;/yammer:restore-oauth-access-token&gt;
+    &lt;/yammer:config&gt;
+
+&lt;/mule&gt;
+</pre>
+
+
+
+
+
 
 <!-- ========= MESSAGE PROCESSOR DETAIL ======== -->
 <!-- Message Processors -->
@@ -447,40 +567,34 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages followed by the logged-in user. 
  Corresponds to the "My Feed" tab on the website.
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-following-messages/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-following-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>accessToken</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">OAuth access token<br/></td>
+                    <td class="jd-descrcol" width="100%">OAuth access token</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -490,9 +604,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the list of <br/><code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
-<br/></li></ul>
+      <ul class="nolist"><li>the list of <code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -513,40 +629,34 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Answers all messages in this network. Corresponds to the "Company Feed" tab on the website.
  
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>INCLUDE_ERROR</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>INCLUDE_ERROR</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>accessToken</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">OAuth access token<br/></td>
+                    <td class="jd-descrcol" width="100%">OAuth access token</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -556,9 +666,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the list of <br/><code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
-<br/></li></ul>
+      <ul class="nolist"><li>the list of <code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -580,40 +692,34 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of private Messages (aka Direct Messages) for the logged-in user. 
  Corresponds to the "Direct Messages" section on the website.
  
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-private-messages/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-private-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>accessToken</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">OAuth access token<br/></td>
+                    <td class="jd-descrcol" width="100%">OAuth access token</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -623,9 +729,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the list of <br/><code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
-<br/></li></ul>
+      <ul class="nolist"><li>the list of <code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -647,40 +755,34 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages received by the logged-in user. 
  Corresponds to the "Received" tab on the website.
  
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-received-messages/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-received-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>accessToken</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">OAuth access token<br/></td>
+                    <td class="jd-descrcol" width="100%">OAuth access token</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -690,9 +792,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the list of <br/><code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
-<br/></li></ul>
+      <ul class="nolist"><li>the list of <code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -714,40 +818,34 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of messages sent by the current user. 
  Corresponds to the "Sent" tab on the website.
  
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-sent-messages/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-sent-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>accessToken</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">OAuth access token<br/></td>
+                    <td class="jd-descrcol" width="100%">OAuth access token</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -757,9 +855,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the list of <br/><code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
-<br/></li></ul>
+      <ul class="nolist"><li>the list of <code><a href="../java/org/mule/yammer/Message.html">Message</a></code>s
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
