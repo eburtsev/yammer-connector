@@ -10,9 +10,9 @@
 
 package org.mule.yammer;
 
-import java.util.List;
-
 import org.codehaus.jackson.annotate.JsonProperty;
+
+import java.util.List;
 
 public class Message {
 
@@ -209,4 +209,27 @@ public class Message {
         this.likedBy = likedBy;
     }
 
+    @Override
+    public String toString() {
+        return "Message{" +
+                "attachments=" + attachments +
+                ", clientUrl='" + clientUrl + '\'' +
+                ", systemMessage='" + systemMessage + '\'' +
+                ", body=" + body +
+                ", senderType='" + senderType + '\'' +
+                ", networkId=" + networkId +
+                ", threadId=" + threadId +
+                ", webUrl='" + webUrl + '\'' +
+                ", directMessage=" + directMessage +
+                ", id=" + id +
+                ", url='" + url + '\'' +
+                ", clientType='" + clientType + '\'' +
+                ", messageType='" + messageType + '\'' +
+                ", senderId=" + senderId +
+                ", repliedToId=" + repliedToId +
+                ", likedBy=" + likedBy +
+                ", privacy='" + privacy + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                '}';
+    }
 }

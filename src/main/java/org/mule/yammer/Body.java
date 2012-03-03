@@ -40,5 +40,13 @@ public class Body
     {
         this.plain = plain;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Body{" +
+                "parsed='" + parsed + '\'' +
+                ", plain='" + plain + '\'' +
+                ", urls=" + urls +
+                '}';
+    }
 }
