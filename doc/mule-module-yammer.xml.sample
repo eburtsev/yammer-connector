@@ -17,3 +17,7 @@
 <!-- BEGIN_INCLUDE(yammer:get-following-messages) -->
 <yammer:get-following-messages/>
 <!-- END_INCLUDE(yammer:get-following-messages) -->
+
+<!-- BEGIN_INCLUDE(yammer:create-message) -->
+<yammer:create-message body="New cool message"/>
+<!-- END_INCLUDE(yammer:create-message) -->

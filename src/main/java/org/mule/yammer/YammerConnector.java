@@ -14,11 +14,16 @@
 
 package org.mule.yammer;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.LoggingFilter;
+import com.sun.jersey.api.representation.Form;
+import com.sun.jersey.oauth.client.OAuthClientFilter;
+import com.sun.jersey.oauth.signature.HMAC_SHA1;
+import com.sun.jersey.oauth.signature.OAuthParameters;
+import com.sun.jersey.oauth.signature.OAuthSecrets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.jaxrs.Annotations;
@@ -36,29 +41,24 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.springframework.http.HttpStatus;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.LoggingFilter;
-import com.sun.jersey.oauth.client.OAuthClientFilter;
-import com.sun.jersey.oauth.signature.HMAC_SHA1;
-import com.sun.jersey.oauth.signature.OAuthParameters;
-import com.sun.jersey.oauth.signature.OAuthSecrets;
+import javax.annotation.PostConstruct;
+import javax.ws.rs.core.MediaType;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Connector for Yammer related functions.
- * 
+ *
  * <a href="https://www.yammer.com">Yammer</a> is a social-network-like internal corporate communications system,
- * where users are able to post messages, follow users, 
+ * where users are able to post messages, follow users,
  * images and so on in a manner like Facebook or Twitter.
- * 
+ *
  * This connector allows to:
  * <ul>
  *  <li>Retrieve messages</li>
  *  <li>Retrieve received messages</li>
  *  <li>Retrieve private messages</li>
- *  <li>Retrieve sent messages</li>   
+ *  <li>Retrieve sent messages</li>
  * </ul>
  * <p>
  * It's necessary to set in yammer (https://www.yammer.com/client_applications where you can create an application or edit it) the next Callback URL:<br/>
@@ -77,27 +77,26 @@ import com.sun.jersey.oauth.signature.OAuthSecrets;
  *<br/>
  *    where {host} and {port} are the same of the Callback URL used before.<br/>
  *</p>
- * 
- * @author MuleSoft, Inc. 
+ *
+ * @author MuleSoft, Inc.
  */
 @Module(name = "yammer", schemaVersion="2.0")
-@OAuth2(authorizationUrl = "https://www.yammer.com/dialog/oauth", 
+@OAuth2(authorizationUrl = "https://www.yammer.com/dialog/oauth",
        accessTokenUrl = "https://www.yammer.com/oauth2/access_token.json",
        callbackPath = "yammerCodeRetrievingPath",
        accessTokenRegex = "\"token\":\"([^&]+?)\"" )
-public class YammerConnector
-{
+public class YammerConnector {
     protected transient Log logger = LogFactory.getLog(getClass());
 
     /**
-     * The OAuth consumer key 
+     * The OAuth consumer key
      */
     @Configurable
     @OAuthConsumerKey
     private String consumerKey;
 
     /**
-     * The OAuth consumer secret 
+     * The OAuth consumer secret
      */
     @Configurable
     @OAuthConsumerSecret
@@ -105,8 +104,8 @@ public class YammerConnector
 
     /**
      * If connector should be run in debug mode.
-     * This enables logging of HTTP activity 
-     * against Yammer 
+     * This enables logging of HTTP activity
+     * against Yammer
      */
     @Configurable
     @Optional
@@ -117,12 +116,9 @@ public class YammerConnector
     private Client client;
 
 
-    
     @PostConstruct
-    public void initialise() 
-    {
-        if (client == null)
-        {
+    public void initialise() {
+        if (client == null) {
             DefaultClientConfig config = new DefaultClientConfig();
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -132,97 +128,104 @@ public class YammerConnector
             client = Client.create(config);
         }
 
-        if (debug)
-        {
+        if (debug) {
             client.addFilter(new LoggingFilter());
         }
     }
 
     /**
      * Answers all messages in this network. Corresponds to the "Company Feed" tab on the website.
-     * 
+     * <p/>
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
-     * 
+     *
      * @param accessToken OAuth access token
      * @return the list of {@link Message}s
      */
     @Processor
-    public List<Message> getMessages(@OAuthAccessToken String accessToken)
-    {
+    public List<Message> getMessages(@OAuthAccessToken String accessToken) {
         return getMessages("https://www.yammer.com/api/v1/messages.json", accessToken);
     }
 
     /**
-     * Answers the whole list of messages sent by the current user. 
+     * Answers the whole list of messages sent by the current user.
      * Corresponds to the "Sent" tab on the website.
-     * 
+     * <p/>
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-sent-messages}
-     * 
+     *
      * @param accessToken OAuth access token
      * @return the list of {@link Message}s
      */
     @Processor
-    public List<Message> getSentMessages(@OAuthAccessToken String accessToken)
-    {
+    public List<Message> getSentMessages(@OAuthAccessToken String accessToken) {
         return getMessages("https://www.yammer.com/api/v1/messages/sent.json", accessToken);
     }
 
     /**
-     * Answers the list of messages received by the logged-in user. 
+     * Answers the list of messages received by the logged-in user.
      * Corresponds to the "Received" tab on the website.
-     * 
+     * <p/>
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-received-messages}
-     * 
+     *
      * @param accessToken OAuth access token
      * @return the list of {@link Message}s
      */
     @Processor
-    public List<Message> getReceivedMessages(@OAuthAccessToken String accessToken)
-    {
+    public List<Message> getReceivedMessages(@OAuthAccessToken String accessToken) {
         return getMessages("https://www.yammer.com/api/v1/messages/received.json", accessToken);
     }
 
     /**
-     * Answers the whole list of private Messages (aka Direct Messages) for the logged-in user. 
+     * Answers the whole list of private Messages (aka Direct Messages) for the logged-in user.
      * Corresponds to the "Direct Messages" section on the website.
-     * 
+     * <p/>
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-private-messages}
-     * 
+     *
      * @param accessToken OAuth access token
      * @return the list of {@link Message}s
      */
     @Processor
-    public List<Message> getPrivateMessages(@OAuthAccessToken String accessToken)
-    {
+    public List<Message> getPrivateMessages(@OAuthAccessToken String accessToken) {
         return getMessages("https://www.yammer.com/api/v1/messages/private.json", accessToken);
     }
 
     /**
-     * Answers the list of messages followed by the logged-in user. 
+     * Answers the list of messages followed by the logged-in user.
      * Corresponds to the "My Feed" tab on the website.
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-following-messages}
-     * 
+     *
      * @param accessToken OAuth access token
      * @return the list of {@link Message}s
      */
     @Processor
-    public List<Message> getFollowingMessages(@OAuthAccessToken String accessToken)
-    {
+    public List<Message> getFollowingMessages(@OAuthAccessToken String accessToken) {
         return getMessages("https://www.yammer.com/api/v1/messages/following.json", accessToken);
     }
 
-    private List<Message> getMessages(String url, String accessToken)
-    {
+    /**
+     * Creates a new message in the account of the logged-in user.
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:create-message}
+     *
+     * @param accessToken OAuth access token
+     * @param body        the content of the message to create
+     * @return the message created.
+     */
+    @Processor
+    public String createMessage(@OAuthAccessToken String accessToken, String body) {
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/messages.json", accessToken);
+        Form form = new Form();
+        form.add("body", body);
+        return resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(String.class, form);
+    }
+
+    private List<Message> getMessages(String url, String accessToken) {
         ClientResponse response = oauthResource(url, accessToken).get(ClientResponse.class);
-        if (response.getStatus() != HttpStatus.OK.value())
-        {
+        if (response.getStatus() != HttpStatus.OK.value()) {
             throw new RuntimeException(response.getEntity(String.class));
         }
-        
+
         List<Message> messages = response.getEntity(Messages.class).getMessages();
-        
-        if (messages == null)
-        {
+
+        if (messages == null) {
             return Collections.emptyList();
         }
         return messages;
@@ -230,16 +233,15 @@ public class YammerConnector
 
     /**
      * Creates a WebResource with the proper oauth authentication information.
-     * 
+     *
      * @param accessToken OAuth access token
-     * @param url the url of the resource
-     * @return the authenticated {@link WebResource} 
+     * @param url         the url of the resource
+     * @return the authenticated {@link WebResource}
      */
-    protected WebResource oauthResource(String url, String accessToken)
-    {
-        WebResource resource = client.resource(url+"?access_token="+accessToken);
+    protected WebResource oauthResource(String url, String accessToken) {
+        WebResource resource = client.resource(url + "?access_token=" + accessToken);
         OAuthParameters params = new OAuthParameters().signatureMethod(HMAC_SHA1.NAME).consumerKey(
-            consumerKey).token(accessToken).version("2.0");
+                consumerKey).token(accessToken).version("2.0");
 
         OAuthSecrets secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 
@@ -248,43 +250,35 @@ public class YammerConnector
     }
 
 
-    public Client getClient()
-    {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(Client client)
-    {
+    public void setClient(Client client) {
         this.client = client;
     }
 
-    public String getConsumerKey()
-    {
+    public String getConsumerKey() {
         return consumerKey;
     }
 
-    public void setConsumerKey(String applicationKey)
-    {
+    public void setConsumerKey(String applicationKey) {
         this.consumerKey = applicationKey;
     }
 
-    public String getConsumerSecret()
-    {
+    public String getConsumerSecret() {
         return consumerSecret;
     }
 
-    public void setConsumerSecret(String applicationSecret)
-    {
+    public void setConsumerSecret(String applicationSecret) {
         this.consumerSecret = applicationSecret;
     }
 
-    public boolean isDebug()
-    {
+    public boolean isDebug() {
         return debug;
     }
 
-    public void setDebug(boolean debug)
-    {
+    public void setDebug(boolean debug) {
         this.debug = debug;
     }
 
