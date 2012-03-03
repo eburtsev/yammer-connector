@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -84,6 +86,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,6 +105,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Yammer Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -181,9 +205,13 @@
     <li class="selected api apilevel-">
   <a href="../../../../java/org/mule/yammer/package-summary.html">org.mule.yammer</a></li>
     <li class="api apilevel-">
+  <a href="../../../../java/org/mule/yammer/adapters/package-summary.html">org.mule.yammer.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../../../../java/org/mule/yammer/config/package-summary.html">org.mule.yammer.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../java/org/mule/yammer/config/spring/package-summary.html">org.mule.yammer.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../java/org/mule/yammer/processors/package-summary.html">org.mule.yammer.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -362,7 +390,7 @@ Summary:
               >
           
             
-              <a href="../../../../java/org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a>
+              <a href="../../../../java/org/mule/yammer/adapters/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a>
             
           
       </div>
@@ -371,7 +399,7 @@ Summary:
               >
   <table class="jd-sumtable-expando">
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a></td>
+              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/adapters/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a></td>
               <td class="jd-descrcol" width="100%">A <code>YammerConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../../../../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
           </tr>
   </table>
@@ -395,11 +423,11 @@ Summary:
               >
           
             
-              <a href="../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a>,
+              <a href="../../../../java/org/mule/yammer/adapters/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a>,
             
-              <a href="../../../../java/org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a>,
+              <a href="../../../../java/org/mule/yammer/adapters/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a>,
             
-              <a href="../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a>
+              <a href="../../../../java/org/mule/yammer/adapters/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a>
             
           
       </div>
@@ -408,15 +436,15 @@ Summary:
               >
   <table class="jd-sumtable-expando">
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></td>
+              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/adapters/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></td>
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a></td>
+              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/adapters/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a></td>
               <td class="jd-descrcol" width="100%">A <code>YammerConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../../../../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></td>
+              <td class="jd-linkcol"><a href="../../../../java/org/mule/yammer/adapters/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></td>
               <td class="jd-descrcol" width="100%">A <code>YammerConnectorOAuth2Adapter</code> is a wrapper around <code><a href="../../../../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that adds OAuth capabilites to the pojo.&nbsp;</td>
           </tr>
   </table>
@@ -430,17 +458,17 @@ Summary:
 
 <h2>Class Overview</h2>
 <p>Connector for Yammer related functions.
- 
+
  <a href="https://www.yammer.com">Yammer</a> is a social-network-like internal corporate communications system,
- where users are able to post messages, follow users, 
+ where users are able to post messages, follow users,
  images and so on in a manner like Facebook or Twitter.
- 
+
  This connector allows to:
  <ul>
   <li>Retrieve messages</li>
   <li>Retrieve received messages</li>
   <li>Retrieve private messages</li>
-  <li>Retrieve sent messages</li>   
+  <li>Retrieve sent messages</li>
  </ul>
  <p>
  It's necessary to set in yammer (https://www.yammer.com/client_applications where you can create an application or edit it) the next Callback URL:<br/>
@@ -526,7 +554,7 @@ Summary:
           
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../org/mule/yammer/YammerConnector.html#consumerKey">consumerKey</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth consumer key 
+          <td class="jd-descrcol" width="100%">The OAuth consumer key
 </td>
       </tr>
       
@@ -538,7 +566,7 @@ Summary:
           
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../org/mule/yammer/YammerConnector.html#consumerSecret">consumerSecret</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth consumer secret 
+          <td class="jd-descrcol" width="100%">The OAuth consumer secret
 </td>
       </tr>
       
@@ -616,11 +644,13 @@ Summary:
             
             
             
-            Client</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mule/yammer/YammerConnector.html#getClient()">getClient</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../org/mule/yammer/YammerConnector.html#createMessage(java.lang.String, java.lang.String)">createMessage</a></span>(String accessToken, String body)</nobr>
         
+        <div class="jd-descrdiv">Creates a new message in the account of the logged-in user.</div>
+  
   </td></tr>
 
 
@@ -632,10 +662,10 @@ Summary:
             
             
             
-            String</nobr>
+            Client</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mule/yammer/YammerConnector.html#getConsumerKey()">getConsumerKey</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../org/mule/yammer/YammerConnector.html#getClient()">getClient</a></span>()</nobr>
         
   </td></tr>
 
@@ -651,13 +681,29 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mule/yammer/YammerConnector.html#getConsumerSecret()">getConsumerSecret</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../org/mule/yammer/YammerConnector.html#getConsumerKey()">getConsumerKey</a></span>()</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../org/mule/yammer/YammerConnector.html#getConsumerSecret()">getConsumerSecret</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -675,7 +721,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -693,7 +739,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -711,7 +757,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -729,7 +775,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -747,7 +793,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -763,7 +809,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -779,7 +825,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -795,7 +841,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -811,7 +857,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -827,7 +873,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1169,7 +1215,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The OAuth consumer key 
+  <div class="jd-tagdata jd-tagdescr"><p>The OAuth consumer key
 </p></div>
 
     
@@ -1200,7 +1246,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The OAuth consumer secret 
+  <div class="jd-tagdata jd-tagdescr"><p>The OAuth consumer secret
 </p></div>
 
     
@@ -1232,8 +1278,8 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>If connector should be run in debug mode.
- This enables logging of HTTP activity 
- against Yammer 
+ This enables logging of HTTP activity
+ against Yammer
 </p></div>
 
     
@@ -1325,6 +1371,56 @@ From class
 
 <h2>Public Methods</h2>
 
+
+
+<A NAME="createMessage(java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">createMessage</span>
+      <span class="normal">(String accessToken, String body)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new message in the account of the logged-in user.
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>accessToken</td>
+          <td>OAuth access token</td>
+        </tr>
+        <tr>
+          <th>body</td>
+          <td>The content of the message to create</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the message created.
+</li></ul>
+  </div>
+
+    </div>
+</div>
 
 
 <A NAME="getClient()"></A>
@@ -1445,7 +1541,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages followed by the logged-in user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages followed by the logged-in user.
  Corresponds to the "My Feed" tab on the website.
  </p></div>
   <div class="jd-tagdata">
@@ -1493,7 +1589,7 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Answers all messages in this network. Corresponds to the "Company Feed" tab on the website.
- 
+ <p/>
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -1539,9 +1635,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of private Messages (aka Direct Messages) for the logged-in user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of private Messages (aka Direct Messages) for the logged-in user.
  Corresponds to the "Direct Messages" section on the website.
- 
+ <p/>
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -1587,9 +1683,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages received by the logged-in user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages received by the logged-in user.
  Corresponds to the "Received" tab on the website.
- 
+ <p/>
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -1635,9 +1731,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of messages sent by the current user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of messages sent by the current user.
  Corresponds to the "Sent" tab on the website.
- 
+ <p/>
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -1930,7 +2026,7 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the authenticated WebResource 
+      <ul class="nolist"><li>the authenticated WebResource
 </li></ul>
   </div>
 

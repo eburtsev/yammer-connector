@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -101,6 +104,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Yammer Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -196,7 +220,6 @@ Summary:
 <div id="jd-header">
     org.mule.modules
 <h1>mule-module-yammer</h1>
-    2.4-SNAPSHOT
 
 </div><!-- end header -->
 
@@ -205,15 +228,17 @@ Summary:
 <div id="jd-content" class="api apilevel-">
 
 
+<br/>
+
 <div class="jd-tagdata">
       <table class="jd-tagtable">
         <tbody><tr>
           <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/yammer</td>
         </tr><tr>
-          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd</td>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/yammer/current/mule-yammer.xsd&nbsp;&nbsp;(<a href="yammer-schema.html">View Schema</a>)</td>
         </tr>
 <tr>
-          <th>Version</th><td>2.0</td>
+          <th>Schema Version</th><td>2.0</td>
         </tr>
 <tr>
           <th>Minimum Mule Version</th><td>3.2</td>
@@ -226,17 +251,17 @@ Summary:
 
 <h2>Module Overview</h2>
 <p>Connector for Yammer related functions.
- 
+
  <a href="https://www.yammer.com">Yammer</a> is a social-network-like internal corporate communications system,
- where users are able to post messages, follow users, 
+ where users are able to post messages, follow users,
  images and so on in a manner like Facebook or Twitter.
- 
+
  This connector allows to:
  <ul>
   <li>Retrieve messages</li>
   <li>Retrieve received messages</li>
   <li>Retrieve private messages</li>
-  <li>Retrieve sent messages</li>   
+  <li>Retrieve sent messages</li>
  </ul>
  <p>
  It's necessary to set in yammer (https://www.yammer.com/client_applications where you can create an application or edit it) the next Callback URL:<br/>
@@ -298,29 +323,29 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/yammer.html#get-following-messages">&lt;yammer:get-following-messages&gt;</a></nobr>
+        <span class="sympad"><a href="../mule/yammer.html#create-message">&lt;yammer:create-message&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Answers the list of messages followed by the logged-in user.<br/></div>
+        <div class="jd-descrdiv">Creates a new message in the account of the logged-in user.</div>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/yammer.html#get-following-messages">&lt;yammer:get-following-messages&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Answers the list of messages followed by the logged-in user.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/yammer.html#get-messages">&lt;yammer:get-messages&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Answers all messages in this network.<br/></div>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/yammer.html#get-private-messages">&lt;yammer:get-private-messages&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">Answers the whole list of private Messages (aka Direct Messages) for the logged-in user.<br/></div>
+        <div class="jd-descrdiv">Answers all messages in this network.</div>
         
   </td></tr>
 
@@ -328,9 +353,9 @@ Summary:
 	 
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/yammer.html#get-received-messages">&lt;yammer:get-received-messages&gt;</a></nobr>
+        <span class="sympad"><a href="../mule/yammer.html#get-private-messages">&lt;yammer:get-private-messages&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Answers the list of messages received by the logged-in user.<br/></div>
+        <div class="jd-descrdiv">Answers the whole list of private Messages (aka Direct Messages) for the logged-in user.</div>
         
   </td></tr>
 
@@ -338,9 +363,19 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/yammer.html#get-received-messages">&lt;yammer:get-received-messages&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Answers the list of messages received by the logged-in user.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/yammer.html#get-sent-messages">&lt;yammer:get-sent-messages&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Answers the whole list of messages sent by the current user.<br/></div>
+        <div class="jd-descrdiv">Answers the whole list of messages sent by the current user.</div>
         
   </td></tr>
 
@@ -358,7 +393,6 @@ Summary:
 </div><!-- jd-descr (summary) -->
 
 
-
 <!-- ========= CONFIGURATION DETAIL ======== -->
 <A NAME="config"></A>
 <h2>Configuration</h2>
@@ -372,14 +406,15 @@ similar to the following:</p>
                http://www.mulesoft.org/schema/mule/core
                http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                http://www.mulesoft.org/schema/mule/yammer
-               http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd"&gt;
+               http://www.mulesoft.org/schema/mule/yammer/current/mule-yammer.xsd"&gt;
 
       &lt;!-- here goes your flows and configuration elements --&gt;
 
 &lt;/mule&gt;
 </pre>
+
 <p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
-the root of your Mule application. You can create as many configurations as you deem necesary as long as each carries
+the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
 its own name.</p>
 <p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
 specify which configuration to use.</p>
@@ -397,7 +432,7 @@ specify which configuration to use.</p>
           xs:string</nobr></td>
           <td class="jd-linkcol"><nobr>consumerKey</nobr></td>
           <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">The OAuth consumer key 
+          <td class="jd-descrcol" width="100%">The OAuth consumer key
 </td>
       </tr>
       
@@ -407,7 +442,7 @@ specify which configuration to use.</p>
           xs:string</nobr></td>
           <td class="jd-linkcol"><nobr>consumerSecret</nobr></td>
           <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">The OAuth consumer secret 
+          <td class="jd-descrcol" width="100%">The OAuth consumer secret
 </td>
       </tr>
       
@@ -422,6 +457,7 @@ specify which configuration to use.</p>
       
     
 </table>
+
 
 
 
@@ -520,7 +556,7 @@ we will extract the OAuth access token property and OAuth access token secret pr
                http://www.mulesoft.org/schema/mule/objectstore
                http://www.mulesoft.org/schema/mule/objectstore/1.0/mule-objectstore.xsd
                http://www.mulesoft.org/schema/mule/yammer
-               http://www.mulesoft.org/schema/mule/yammer/2.0/mule-yammer.xsd"&gt;
+               http://www.mulesoft.org/schema/mule/yammer/current/mule-yammer.xsd"&gt;
 
     &lt;yammer:config&gt;
         &lt;yammer:save-oauth-access-token&gt;
@@ -552,6 +588,78 @@ we will extract the OAuth access token property and OAuth access token secret pr
 
 
 
+<A NAME="create-message"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;yammer:create-message&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new message in the account of the logged-in user.
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:create-message body="New cool message"/&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+          
+          
+                
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>accessToken</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">OAuth access token</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>body</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The content of the message to create</td>
+                </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Child Elements</h5>
+        <table id="lconfig" class="jd-sumtable">
+          
+          
+            
+          
+            
+          
+      </table>
+  </div>
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Return Payload</h5>
+      <ul class="nolist"><li>the message created.
+</li></ul>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
 <A NAME="get-following-messages"></A>
 
 <div class="jd-details api apilevel-">
@@ -565,7 +673,7 @@ we will extract the OAuth access token property and OAuth access token secret pr
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages followed by the logged-in user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages followed by the logged-in user.
  Corresponds to the "My Feed" tab on the website.
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-following-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
@@ -628,7 +736,7 @@ we will extract the OAuth access token property and OAuth access token secret pr
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Answers all messages in this network. Corresponds to the "Company Feed" tab on the website.
- 
+ <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>INCLUDE_ERROR</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -689,9 +797,9 @@ we will extract the OAuth access token property and OAuth access token secret pr
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of private Messages (aka Direct Messages) for the logged-in user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of private Messages (aka Direct Messages) for the logged-in user.
  Corresponds to the "Direct Messages" section on the website.
- 
+ <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-private-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -752,9 +860,9 @@ we will extract the OAuth access token property and OAuth access token secret pr
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages received by the logged-in user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the list of messages received by the logged-in user.
  Corresponds to the "Received" tab on the website.
- 
+ <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-received-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -815,9 +923,9 @@ we will extract the OAuth access token property and OAuth access token secret pr
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of messages sent by the current user. 
+  <div class="jd-tagdata jd-tagdescr"><p>Answers the whole list of messages sent by the current user.
  Corresponds to the "Sent" tab on the website.
- 
+ <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;yammer:get-sent-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>

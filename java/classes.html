@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -103,6 +106,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Yammer Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 
@@ -181,9 +205,13 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/yammer/package-summary.html">org.mule.yammer</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/yammer/adapters/package-summary.html">org.mule.yammer.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/yammer/config/package-summary.html">org.mule.yammer.config</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/yammer/config/spring/package-summary.html">org.mule.yammer.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/yammer/processors/package-summary.html">org.mule.yammer.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -233,6 +261,7 @@
 <div class="jd-letterlist">
     <a href="#letter_A">A</a>
     <a href="#letter_B">B</a>
+    <a href="#letter_C">C</a>
     <a href="#letter_D">D</a>
     <a href="#letter_G">G</a>
     <a href="#letter_I">I</a>
@@ -257,13 +286,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/AuthorizeDefinitionParser.html">AuthorizeDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/AuthorizeDefinitionParser.html">AuthorizeDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/AuthorizeDefinitionParser.html">AuthorizeDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/processors/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
@@ -284,12 +325,43 @@
 </table>
 
 
+<h2 id="letter_C">C</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/CreateMessageDefinitionParser.html">CreateMessageDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/processors/CreateMessageMessageProcessor.html">CreateMessageMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">CreateMessageMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#createMessage(java.lang.String, java.lang.String)">createMessage(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
 <h2 id="letter_D">D</h2>
 <table class="jd-sumtable">
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/DefaultHttpCallback.html">DefaultHttpCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/DefaultHttpCallback.html">DefaultHttpCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/DefaultHttpCallback.FlowRefMessageProcessor.html">DefaultHttpCallback.FlowRefMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
@@ -320,61 +392,121 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetFollowingMessagesDefinitionParser.html">GetFollowingMessagesDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/GetFollowingMessagesDefinitionParser.html">GetFollowingMessagesDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetFollowingMessagesMessageProcessor.html">GetFollowingMessagesMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetFollowingMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getFollowingMessages(java.lang.String)">getFollowingMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/processors/GetFollowingMessagesMessageProcessor.html">GetFollowingMessagesMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetFollowingMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getFollowingMessages(java.lang.String)">getFollowingMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetMessagesDefinitionParser.html">GetMessagesDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/GetMessagesDefinitionParser.html">GetMessagesDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetMessagesMessageProcessor.html">GetMessagesMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getMessages(java.lang.String)">getMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/processors/GetMessagesMessageProcessor.html">GetMessagesMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getMessages(java.lang.String)">getMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetPrivateMessagesDefinitionParser.html">GetPrivateMessagesDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/GetPrivateMessagesDefinitionParser.html">GetPrivateMessagesDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetPrivateMessagesMessageProcessor.html">GetPrivateMessagesMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetPrivateMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getPrivateMessages(java.lang.String)">getPrivateMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/processors/GetPrivateMessagesMessageProcessor.html">GetPrivateMessagesMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetPrivateMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getPrivateMessages(java.lang.String)">getPrivateMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetReceivedMessagesDefinitionParser.html">GetReceivedMessagesDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/GetReceivedMessagesDefinitionParser.html">GetReceivedMessagesDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetReceivedMessagesMessageProcessor.html">GetReceivedMessagesMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetReceivedMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getReceivedMessages(java.lang.String)">getReceivedMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/processors/GetReceivedMessagesMessageProcessor.html">GetReceivedMessagesMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetReceivedMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getReceivedMessages(java.lang.String)">getReceivedMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/GetSentMessagesDefinitionParser.html">GetSentMessagesDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetSentMessagesDefinitionParser.html">GetSentMessagesDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/GetSentMessagesDefinitionParser.html">GetSentMessagesDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/GetSentMessagesMessageProcessor.html">GetSentMessagesMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetSentMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getSentMessages(java.lang.String)">getSentMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/processors/GetSentMessagesMessageProcessor.html">GetSentMessagesMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetSentMessagesMessageProcessor invokes the <code><a href="../java/org/mule/yammer/YammerConnector.html#getSentMessages(java.lang.String)">getSentMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code>.&nbsp;</td>
         </tr>
     
@@ -501,8 +633,20 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/adapters/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>YammerConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>YammerConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/YammerConnectorConfigDefinitionParser.html">YammerConnectorConfigDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -513,8 +657,20 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/adapters/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/adapters/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>YammerConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
         </tr>
     
     
@@ -525,8 +681,20 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/YammerConnectorNamespaceHandler.html">YammerConnectorNamespaceHandler</a></td>
+            <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/yammer</code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/yammer/config/spring/YammerConnectorNamespaceHandler.html">YammerConnectorNamespaceHandler</a></td>
             <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/yammer</code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/yammer/adapters/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>YammerConnectorOAuth2Adapter</code> is a wrapper around <code><a href="../java/org/mule/yammer/YammerConnector.html">YammerConnector</a></code> that adds OAuth capabilites to the pojo.&nbsp;</td>
         </tr>
     
     

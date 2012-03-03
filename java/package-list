@@ -1,4 +1,6 @@
 org.mule.yammer
+org.mule.yammer.adapters
 org.mule.yammer.config
 org.mule.yammer.config.spring
+org.mule.yammer.processors
 

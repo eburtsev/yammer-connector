@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -84,6 +86,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,6 +105,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Yammer Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -181,9 +205,13 @@
     <li class="selected api apilevel-">
   <a href="../../../../java/org/mule/yammer/package-summary.html">org.mule.yammer</a></li>
     <li class="api apilevel-">
+  <a href="../../../../java/org/mule/yammer/adapters/package-summary.html">org.mule.yammer.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../../../../java/org/mule/yammer/config/package-summary.html">org.mule.yammer.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../java/org/mule/yammer/config/spring/package-summary.html">org.mule.yammer.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../java/org/mule/yammer/processors/package-summary.html">org.mule.yammer.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -567,6 +595,22 @@ Summary:
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../org/mule/yammer/Body.html#setUrls(java.util.List<java.lang.String>)">setUrls</a></span>(List&lt;String&gt; urls)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../org/mule/yammer/Body.html#toString()">toString</a></span>()</nobr>
         
   </td></tr>
 
@@ -1172,6 +1216,37 @@ From class
         </tr>
       </table>
   </div>
+
+    </div>
+</div>
+
+
+<A NAME="toString()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">toString</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>

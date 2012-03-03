@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -103,6 +106,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Yammer Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -181,10 +205,14 @@
                 
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/yammer/package-summary.html">org.mule.yammer</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/yammer/adapters/package-summary.html">org.mule.yammer.adapters</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../java/org/mule/yammer/config/package-summary.html">org.mule.yammer.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/yammer/config/spring/package-summary.html">org.mule.yammer.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/yammer/processors/package-summary.html">org.mule.yammer.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -194,21 +222,32 @@
               
     <li><h2>Classes</h2>
       <ul>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/AuthorizeDefinitionParser.html">AuthorizeDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/CreateMessageDefinitionParser.html">CreateMessageDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/DefaultHttpCallback.html">DefaultHttpCallback</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/DefaultHttpCallback.FlowRefMessageProcessor.html">DefaultHttpCallback.FlowRefMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/DefaultRestoreAccessTokenCallback.html">DefaultRestoreAccessTokenCallback</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/DefaultSaveAccessTokenCallback.html">DefaultSaveAccessTokenCallback</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetFollowingMessagesDefinitionParser.html">GetFollowingMessagesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetFollowingMessagesMessageProcessor.html">GetFollowingMessagesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetMessagesDefinitionParser.html">GetMessagesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetMessagesMessageProcessor.html">GetMessagesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetPrivateMessagesDefinitionParser.html">GetPrivateMessagesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetPrivateMessagesMessageProcessor.html">GetPrivateMessagesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetReceivedMessagesDefinitionParser.html">GetReceivedMessagesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetReceivedMessagesMessageProcessor.html">GetReceivedMessagesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetSentMessagesDefinitionParser.html">GetSentMessagesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/GetSentMessagesMessageProcessor.html">GetSentMessagesMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/RequestAuthorizationMessageProcessor.html">RequestAuthorizationMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/RestoreAccessTokenCallbackFactoryBean.html">RestoreAccessTokenCallbackFactoryBean</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/SaveAccessTokenCallbackFactoryBean.html">SaveAccessTokenCallbackFactoryBean</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/SetOauthVerifierMessageProcessor.html">SetOauthVerifierMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorCapabilitiesAdapter.html">YammerConnectorCapabilitiesAdapter</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorConfigDefinitionParser.html">YammerConnectorConfigDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorHttpCallbackAdapter.html">YammerConnectorHttpCallbackAdapter</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorLifecycleAdapter.html">YammerConnectorLifecycleAdapter</a></li>
+        <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorNamespaceHandler.html">YammerConnectorNamespaceHandler</a></li>
         <li class="api apilevel-"><a href="../../../../../java/org/mule/yammer/config/YammerConnectorOAuth2Adapter.html">YammerConnectorOAuth2Adapter</a></li>
       </ul>
     </li>
