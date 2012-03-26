@@ -43,4 +43,8 @@
         <yammer:get-following-messages/>
     </flow>
 
+    <flow name="ListUsers">
+        <yammer:list-users/>
+    </flow>
+
 </mule>

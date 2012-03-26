@@ -202,6 +202,18 @@ public class YammerConnector {
     }
 
     /**
+     * Answers the list of users
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:list-users}
+     *
+     * @param accessToken OAuth access token
+     * @return the list of {@link Message}s
+     */
+    @Processor
+    public List<User> listUsers(@OAuthAccessToken String accessToken) {
+        return getUsers("https://www.yammer.com/api/v1/users.json", accessToken);
+    }
+
+    /**
      * Creates a new message in the account of the logged-in user.
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:create-message}
      *
@@ -229,6 +241,20 @@ public class YammerConnector {
             return Collections.emptyList();
         }
         return messages;
+    }
+
+    private List<User> getUsers(String url, String accessToken) {
+        ClientResponse response = oauthResource(url, accessToken).get(ClientResponse.class);
+        if (response.getStatus() != HttpStatus.OK.value()) {
+            throw new RuntimeException(response.getEntity(String.class));
+        }
+
+		List<User> users = response.getEntity(Users.class).getUsers();
+
+        if (users == null) {
+            return Collections.emptyList();
+        }
+        return users;
     }
 
     /**

@@ -21,3 +21,7 @@
 <!-- BEGIN_INCLUDE(yammer:create-message) -->
 <yammer:create-message body="New cool message"/>
 <!-- END_INCLUDE(yammer:create-message) -->
+
+<!-- BEGIN_INCLUDE(yammer:list-users) -->
+<yammer:list-users/>
+<!-- END_INCLUDE(yammer:list-users) -->
