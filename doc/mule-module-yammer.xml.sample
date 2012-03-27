@@ -25,3 +25,7 @@
 <!-- BEGIN_INCLUDE(yammer:list-users) -->
 <yammer:list-users/>
 <!-- END_INCLUDE(yammer:list-users) -->
+
+<!-- BEGIN_INCLUDE(yammer:get-user) -->
+<yammer:get-user userId="#userId#"/>
+<!-- END_INCLUDE(yammer:get-user) -->
