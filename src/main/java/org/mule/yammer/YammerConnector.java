@@ -23,6 +23,8 @@ import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.HMAC_SHA1;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,6 +47,40 @@ import javax.annotation.PostConstruct;
 import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.*;
+import org.apache.http.auth.AuthScheme;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.AuthState;
+import org.apache.http.auth.Credentials;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.AbstractHttpMessage;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.ExecutionContext;
+import org.apache.http.protocol.HttpContext;
 
 /**
  * Connector for Yammer related functions.
@@ -128,6 +164,56 @@ public class YammerConnector {
         if (debug) {
             client.addFilter(new LoggingFilter());
         }
+    }
+
+    /**
+     * Logins specified user
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
+     *
+     * @param url URL returned by authorize call in Location header
+     * @param username Username
+     * @param password Password
+     * @return the list of {@link Message}s
+     */
+    @Processor
+    public void login(String url, String username, String password) throws IOException {
+        logger.info(String.format("login(%s, %s, %s)", url, username, password));
+        HttpConnection httpConnection = new HttpConnection();
+        // Request login page
+        String content = httpConnection.requestToUrl(new HttpGet(url));
+
+        String authenticityToken = extractStringWithRegex(content, ".*?<input name=\"authenticity_token\" type=\"hidden\" value=\"(.*?)\" />.*?", 1);
+        String utf8 = extractStringWithRegex(content, ".*?<input name=\"utf8\" type=\"hidden\" value=\"(.*?)\" />.*?", 1);
+        List<NameValuePair> formParams = new ArrayList<NameValuePair>();
+        formParams.add(new BasicNameValuePair("authenticity_token", authenticityToken));
+        formParams.add(new BasicNameValuePair("login", username));
+        formParams.add(new BasicNameValuePair("password", password));
+        formParams.add(new BasicNameValuePair("remember_me", "on"));
+        formParams.add(new BasicNameValuePair("network_permalink", ""));
+        if (null != utf8) {
+            formParams.add(new BasicNameValuePair("utf8", utf8));
+        }
+        HttpEntity entity = new UrlEncodedFormEntity(formParams, "utf-8");
+        HttpPost httpPost = new HttpPost("https://www.yammer.com/session");
+        httpPost.setEntity(entity);
+        // Perform login
+        content = httpConnection.requestToUrl(httpPost);
+        // Extract link which allow access for application
+        String allowLink = extractStringWithRegex(content, "<div class=\"allow-deny_container\">.*?<a href=\"(https://www.yammer.com/.*?/oauth2/.*?/authorize.*?)\".*?><div.*?>Allow</div></a>.*", 1);
+        // Allow access
+        httpConnection.requestToUrl(new HttpGet(allowLink));
+        httpConnection.close();
+    }
+
+    private String extractStringWithRegex(String content, String regex, int group) {
+        String contentPrepared = content.replaceAll("[\n\r]", "");
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(contentPrepared);
+        if (matcher.find()) {
+            return matcher.group(group);
+        }
+        return null;
     }
 
     /**
