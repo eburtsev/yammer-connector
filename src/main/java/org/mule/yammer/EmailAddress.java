@@ -1,7 +1,9 @@
 package org.mule.yammer;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class EmailAddress {
 
 	@JsonProperty("type")
@@ -10,7 +12,15 @@ public class EmailAddress {
 	@JsonProperty("address")
 	String address;
 
-	public String getAddress() {
+    public EmailAddress() {
+    }
+
+    public EmailAddress(String type, String address) {
+        this.address = address;
+        this.type = type;
+    }
+
+    public String getAddress() {
 		return address;
 	}
 

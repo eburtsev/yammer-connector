@@ -25,7 +25,7 @@ import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
+import java.util.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.jaxrs.Annotations;
@@ -45,11 +45,10 @@ import org.springframework.http.HttpStatus;
 
 import javax.annotation.PostConstruct;
 import javax.ws.rs.core.MediaType;
-import java.util.Collections;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.*;
 import org.apache.http.auth.AuthScheme;
 import org.apache.http.auth.AuthScope;
@@ -81,6 +80,9 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
+import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.param.Payload;
 
 /**
  * Connector for Yammer related functions.
@@ -299,16 +301,72 @@ public class YammerConnector {
     }
 
     /**
-     * Get user by id
+     * Creates user
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
+     *
+     * @param accessToken OAuth access token
+     * @param email email
+     * @param imProvider imProvider
+     * @param imUsername imUsername
+     * @param fullName fullName
+     * @param jobTitle jobTitle
+     * @param significantOther significantOther
+     * @param kidsNames kidsNames
+     * @param interests interests
+     * @param summary summary
+     * @param expertise expertise
+     * 
+     */
+    @Processor
+    public void createUser(@OAuthAccessToken String accessToken, String email,
+            @Optional String imProvider, @Optional String imUsername,
+            @Optional String fullName, @Optional String jobTitle,
+            @Optional String significantOther, @Optional String kidsNames,
+            @Optional String interests, @Optional String summary, @Optional String expertise) {
+        User user = createUserObject(email, imProvider, imUsername, fullName, jobTitle, significantOther, kidsNames, interests, summary, expertise);
+        createUser(accessToken, user);
+    }
+
+    /**
+     * Updates user
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
+     *
+     * @param accessToken OAuth access token
+     * @param email email
+     * @param imProvider imProvider
+     * @param imUsername imUsername
+     * @param fullName fullName
+     * @param jobTitle jobTitle
+     * @param significantOther significantOther
+     * @param kidsNames kidsNames
+     * @param interests interests
+     * @param summary summary
+     * @param expertise expertise
+     * 
+     */
+    @Processor
+    public void updateUser(@OAuthAccessToken String accessToken, String email,
+            @Optional String imProvider, @Optional String imUsername,
+            @Optional String fullName, @Optional String jobTitle,
+            @Optional String significantOther, @Optional String kidsNames,
+            @Optional String interests, @Optional String summary, @Optional String expertise) {
+        User user = createUserObject(email, imProvider, imUsername, fullName, jobTitle, significantOther, kidsNames, interests, summary, expertise);
+        updateUser(accessToken, email, user);
+    }
+
+    /**
+     * Get user by email
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-user}
      *
      * @param accessToken OAuth access token
-     * @param userId User ID
+     * @param email User email
      * @return the list of {@link Message}s
      */
     @Processor
-    public User getUser(@OAuthAccessToken String accessToken, Long userId) {
-        return getUser(String.format("https://www.yammer.com/api/v1/users/%s.json", userId), accessToken);
+    public User getUser(@OAuthAccessToken String accessToken, String email) {
+        return getUserFromUrl(String.format("https://www.yammer.com/api/v1/users/by_email.json?email=%s", email), accessToken);
     }
 
     /**
@@ -341,7 +399,86 @@ public class YammerConnector {
         return messages;
     }
 
-    private User getUser(String url, String accessToken) {
+    private Form convertUserObjectToHttpForm(User user) {
+        Form form = new Form();
+        form.add("email", user.getContact().getEmailAddresses()[0].getAddress());
+        form.add("full_name", user.getFullName());
+        form.add("job_title", user.getJobTitle());
+        form.add("im_provider", user.getContact().getImAddress().getProvider());
+        form.add("im_username", user.getContact().getImAddress().getUsername());
+        form.add("significant_other", user.getSignificantOther());
+        form.add("kids_names", user.getKidsNames());
+        form.add("interests", StringUtils.join(user.getInterests()));
+        form.add("summary", user.getSummary());
+        form.add("expertise", user.getExpertise());
+        return form;
+    }
+
+    private User createUserObject(String email, String im_provider, String im_username,
+            String full_name, String job_title, String significant_other, String kids_names, String interests, String summary, String expertise) {
+        User user = new User();
+        UserContacts contacts = new UserContacts();
+        contacts.setEmailAddresses(new EmailAddress[] { new EmailAddress("home", email) });
+        if (null != im_provider && null != im_username) {
+            contacts.setImAddress(new ImAddress(im_provider, im_username));
+        }
+        user.setContact(contacts);
+        user.setFullName(full_name);
+        user.setJobTitle(job_title);
+        user.setSignificantOther(significant_other);
+        user.setKidsNames(kids_names);
+        if (null != interests) {
+            user.setInterests(interests.split(","));
+        }
+        user.setSummary(summary);
+        user.setExpertise(expertise);
+        return user;
+    }
+
+    private User createUser(String accessToken, User user) {
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/users.json", accessToken);
+        Form form = convertUserObjectToHttpForm(user);
+        ClientResponse response = resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, form);
+        System.out.println("============================================");
+        System.out.println(response.getStatus());
+        if (response.getStatus() != HttpStatus.OK.value()) {
+            throw new RuntimeException(response.getEntity(String.class));
+        }
+
+        System.out.println("============================================");
+
+        return user;
+    }
+
+    private User updateUser(String accessToken, String email, User user) {
+        List<User> users = getUsers("https://www.yammer.com/api/v1/users.json", accessToken);
+        for (User u : users) {
+            UserContacts contacts = u.getContact();
+            if (null != contacts
+                    && null != contacts.getEmailAddresses()
+                    && contacts.getEmailAddresses().length > 0
+                    && email.equals(contacts.getEmailAddresses()[0].getAddress())) {
+                String url = String.format("https://www.yammer.com/api/v1/users/%s.json", u.getId());
+                System.out.println(url);
+                WebResource resource = oauthResource(url, accessToken);
+                Form form = convertUserObjectToHttpForm(user);
+                ClientResponse response = resource.type(MediaType.APPLICATION_FORM_URLENCODED).put(ClientResponse.class, form);
+                System.out.println("============================================");
+                System.out.println(response.getStatus());
+                for (String key : response.getHeaders().keySet()) {
+                    System.out.println(String.format("%s: %s", key, response.getHeaders().get(key)));
+                }
+                if (response.getStatus() != HttpStatus.OK.value()) {
+                    throw new RuntimeException(response.getEntity(String.class));
+                }
+                System.out.println("============================================");
+                return user;
+            }
+        }
+        return null;
+    }
+
+    private User getUserFromUrl(String url, String accessToken) {
         ClientResponse response = oauthResource(url, accessToken).get(ClientResponse.class);
         if (response.getStatus() != HttpStatus.OK.value()) {
             throw new RuntimeException(response.getEntity(String.class));
@@ -358,7 +495,7 @@ public class YammerConnector {
             throw new RuntimeException(response.getEntity(String.class));
         }
 
-        List<User> users = response.getEntity(new ArrayList<User>().getClass());
+        Users users = response.getEntity(Users.class);
 
         if (users == null) {
             return Collections.emptyList();

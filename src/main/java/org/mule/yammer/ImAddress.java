@@ -5,11 +5,21 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class ImAddress {
 
 	@JsonProperty("provider")
-	String provider;
+	String provider = "";
 
 	@JsonProperty("username")
-	String username;
+	String username = "";
 
+    public ImAddress() {
+        
+    }
+
+    public ImAddress(String provider, String username) {
+        this();
+        this.provider = provider;
+        this.username = username;
+    }
+    
 	public String getProvider() {
 		return provider;
 	}

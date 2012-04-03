@@ -1,7 +1,10 @@
 package org.mule.yammer;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+@JsonSerialize(include = Inclusion.NON_NULL)
 public class UserStatistics {
 
 	@JsonProperty("updates")
