@@ -289,6 +289,34 @@ public class YammerConnector {
     }
 
     /**
+     * Answers the list of groups
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:list-users}
+     *
+     * @param accessToken OAuth access token
+     * @return the list of {@link Group}s
+     */
+    @Processor
+    public List<Group> listGroups(@OAuthAccessToken String accessToken) {
+        return getGroups(accessToken);
+    }
+
+        /**
+     * Creates user
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
+     *
+     * @param accessToken OAuth access token
+     * @param name name
+     * @param description description
+     * @param isPrivate isPrivate
+     * 
+     */
+    @Processor
+    public void createGroup(@OAuthAccessToken String accessToken, String name, @Optional String description, @Optional Boolean isPrivate) {
+        createGroupInternal(accessToken, name, description, isPrivate);
+    }
+
+    /**
      * Answers the list of users 
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:list-users}
      *
@@ -495,6 +523,26 @@ public class YammerConnector {
             return Collections.emptyList();
         }
         return users;
+    }
+
+    private List<Group> getGroups(String accessToken) {
+        Groups groups = getGenericObject("https://www.yammer.com/api/v1/groups.json", accessToken, Groups.class);
+
+        if (groups == null) {
+            return Collections.emptyList();
+        }
+        return groups;
+    }
+
+    private void createGroupInternal(String accessToken, String name, String description, Boolean isPrivate) {
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/groups", accessToken);
+        Form form = new Form();
+        form.add("name", name);
+        form.add("description", description);
+        if (isPrivate) {
+            form.add("private", "true");
+        }
+        resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(form);
     }
 
     /**
