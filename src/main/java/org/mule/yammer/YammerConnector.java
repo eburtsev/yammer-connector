@@ -403,13 +403,26 @@ public class YammerConnector {
      *
      * @param accessToken OAuth access token
      * @param body the content of the message to create
+     * @param groupName groupName
      * @return the message created.
      */
     @Processor
-    public String createMessage(@OAuthAccessToken String accessToken, String body) {
+    public String createMessage(@OAuthAccessToken String accessToken, String body, @Optional String groupName) {
         WebResource resource = oauthResource("https://www.yammer.com/api/v1/messages.json", accessToken);
         Form form = new Form();
         form.add("body", body);
+        if (!StringUtils.isEmpty(groupName)) {
+            List<Group> groups = listGroups(accessToken);
+            for (Group group : groups) {
+                if (groupName.equals(group.getName())) {
+                    form.add("group_id", group.getId());
+                    break;
+                }
+            }
+            if (!form.containsKey("group_id")) {
+                return "NO_SUCH_GROUP";
+            }
+        }
         return resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(String.class, form);
     }
 
