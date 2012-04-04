@@ -414,7 +414,7 @@ public class YammerConnector {
         if (!StringUtils.isEmpty(groupName)) {
             List<Group> groups = listGroups(accessToken);
             for (Group group : groups) {
-                if (groupName.equals(group.getName())) {
+                if (groupName.replaceAll("\\s", "").equalsIgnoreCase(group.getName())) {
                     form.add("group_id", group.getId());
                     break;
                 }
