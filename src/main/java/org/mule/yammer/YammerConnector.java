@@ -293,7 +293,7 @@ public class YammerConnector {
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:list-users}
      *
      * @param accessToken OAuth access token
-     * @return the list of {@link Message}s
+     * @return the list of {@link User}s
      */
     @Processor
     public List<User> listUsers(@OAuthAccessToken String accessToken) {
@@ -386,12 +386,7 @@ public class YammerConnector {
     }
 
     private List<Message> getMessages(String url, String accessToken) {
-        ClientResponse response = oauthResource(url, accessToken).get(ClientResponse.class);
-        if (response.getStatus() != HttpStatus.OK.value()) {
-            throw new RuntimeException(response.getEntity(String.class));
-        }
-
-        List<Message> messages = response.getEntity(Messages.class).getMessages();
+        List<Message> messages = getGenericObject(url, accessToken, Messages.class).getMessages();
 
         if (messages == null) {
             return Collections.emptyList();
@@ -479,23 +474,22 @@ public class YammerConnector {
     }
 
     private User getUserFromUrl(String url, String accessToken) {
+        return getGenericObject(url, accessToken, User.class);
+    }
+
+    private <T> T getGenericObject(String url, String accessToken, Class<T> clazz) {
         ClientResponse response = oauthResource(url, accessToken).get(ClientResponse.class);
         if (response.getStatus() != HttpStatus.OK.value()) {
             throw new RuntimeException(response.getEntity(String.class));
         }
 
-        User user = response.getEntity(User.class);
+        T object = response.getEntity(clazz);
 
-        return user;
+        return object;
     }
 
     private List<User> getUsers(String url, String accessToken) {
-        ClientResponse response = oauthResource(url, accessToken).get(ClientResponse.class);
-        if (response.getStatus() != HttpStatus.OK.value()) {
-            throw new RuntimeException(response.getEntity(String.class));
-        }
-
-        Users users = response.getEntity(Users.class);
+        Users users = getGenericObject(url, accessToken, Users.class);
 
         if (users == null) {
             return Collections.emptyList();
