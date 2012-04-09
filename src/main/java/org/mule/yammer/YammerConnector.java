@@ -47,42 +47,12 @@ import javax.annotation.PostConstruct;
 import javax.ws.rs.core.MediaType;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.*;
-import org.apache.http.auth.AuthScheme;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.AuthState;
-import org.apache.http.auth.Credentials;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.message.AbstractHttpMessage;
-import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.ExecutionContext;
-import org.apache.http.protocol.HttpContext;
-import org.mule.api.annotations.display.FriendlyName;
-import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.param.Payload;
 
 /**
  * Connector for Yammer related functions.
@@ -300,8 +270,8 @@ public class YammerConnector {
         return getGroups(accessToken);
     }
 
-        /**
-     * Creates user
+    /**
+     * Creates group
      * <p/>
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
      *
@@ -314,6 +284,29 @@ public class YammerConnector {
     @Processor
     public void createGroup(@OAuthAccessToken String accessToken, String name, @Optional String description, @Optional Boolean isPrivate) {
         createGroupInternal(accessToken, name, description, isPrivate);
+    }
+
+    /**
+     * Get group by name
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
+     *
+     * @param accessToken OAuth access token
+     * @param name name
+     * 
+     * @return {@link Group} object
+     */
+    @Processor
+    public Group getGroup(String accessToken, String name) {
+        if (!StringUtils.isEmpty(name)) {
+            List<Group> groups = listGroups(accessToken);
+            for (Group group : groups) {
+                if (name.replaceAll("\\s", "").equalsIgnoreCase(group.getName())) {
+                    return group;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -411,17 +404,11 @@ public class YammerConnector {
         WebResource resource = oauthResource("https://www.yammer.com/api/v1/messages.json", accessToken);
         Form form = new Form();
         form.add("body", body);
-        if (!StringUtils.isEmpty(groupName)) {
-            List<Group> groups = listGroups(accessToken);
-            for (Group group : groups) {
-                if (groupName.replaceAll("\\s", "").equalsIgnoreCase(group.getName())) {
-                    form.add("group_id", group.getId());
-                    break;
-                }
-            }
-            if (!form.containsKey("group_id")) {
-                return "NO_SUCH_GROUP";
-            }
+        Group group = getGroup(accessToken, groupName);
+        if (null != group) {
+            form.add("group_id", group.getId());
+        } else {
+            return "NO_SUCH_GROUP";
         }
         return resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(String.class, form);
     }
