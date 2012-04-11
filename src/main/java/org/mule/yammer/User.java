@@ -43,7 +43,7 @@ public class User {
 	String url;
 
 	@JsonProperty("interests")
-	String[] interests;
+	String interests;
 
 	@JsonProperty("location")
 	String location;
@@ -168,11 +168,11 @@ public class User {
 		this.id = id;
 	}
 
-	public String[] getInterests() {
+	public String getInterests() {
 		return interests;
 	}
 
-	public void setInterests(String[] interests) {
+	public void setInterests(String interests) {
 		this.interests = interests;
 	}
 
@@ -335,5 +335,10 @@ public class User {
 	public void setWebUrl(String webUrl) {
 		this.webUrl = webUrl;
 	}
+
+    @Override
+    public String toString() {
+        return "User{" + "schools=" + schools + ", kidsNames=" + kidsNames + ", type=" + type + ", previousCompanies=" + previousCompanies + ", verifiedAdmin=" + verifiedAdmin + ", externalUrls=" + externalUrls + ", networkName=" + networkName + ", timezone=" + timezone + ", expertise=" + expertise + ", networkId=" + networkId + ", stats=" + stats + ", url=" + url + ", interests=" + interests + ", location=" + location + ", jobTitle=" + jobTitle + ", mugshotUrl=" + mugshotUrl + ", birthdate=" + birthdate + ", significantOther=" + significantOther + ", fullName=" + fullName + ", guid=" + guid + ", networkDomains=" + networkDomains + ", summary=" + summary + ", state=" + state + ", hireDate=" + hireDate + ", name=" + name + ", webUrl=" + webUrl + ", canBroadcast=" + canBroadcast + ", id=" + id + ", contact=" + contact + ", isAdmin=" + isAdmin + '}';
+    }
 
 }
