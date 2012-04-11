@@ -25,7 +25,10 @@ import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.jaxrs.Annotations;
@@ -48,6 +51,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.http.*;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -188,6 +192,8 @@ public class YammerConnector {
         return null;
     }
 
+    private static final SimpleDateFormat DATE_FORMAT_IN = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss Z");
+
     /**
      * Answers all messages in this network. Corresponds to the "Company Feed"
      * tab on the website.
@@ -195,11 +201,27 @@ public class YammerConnector {
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
      *
      * @param accessToken OAuth access token
+     * @param duration duration
      * @return the list of {@link Message}s
      */
     @Processor
-    public List<Message> getMessages(@OAuthAccessToken String accessToken) {
-        return getMessages("https://www.yammer.com/api/v1/messages.json", accessToken);
+    public List<Message> getMessages(@OAuthAccessToken String accessToken, @Optional Integer duration) {
+        List<Message> allMessages = getMessages("https://www.yammer.com/api/v1/messages.json", accessToken);
+        try {
+            if (null != duration) {
+                List<Message> messages = new ArrayList<Message>();
+                for (Message message : allMessages) {
+                    Date msgDate = DATE_FORMAT_IN.parse(message.getCreatedAt());
+                    if (msgDate.compareTo(DateUtils.addMinutes(new Date(), -duration)) >= 0) {
+                        messages.add(message);
+                    }
+                }
+                return messages;
+            }
+        } catch (java.text.ParseException ex) {
+            throw new RuntimeException(ex);
+        }
+        return allMessages;
     }
 
     /**
@@ -397,20 +419,47 @@ public class YammerConnector {
      * @param accessToken OAuth access token
      * @param body the content of the message to create
      * @param groupName groupName
+     * @param userEmail userEmail
      * @return the message created.
      */
     @Processor
-    public String createMessage(@OAuthAccessToken String accessToken, String body, @Optional String groupName) {
-        WebResource resource = oauthResource("https://www.yammer.com/api/v1/messages.json", accessToken);
+    public Messages createMessage(@OAuthAccessToken String accessToken, String body, @Optional String groupName, @Optional String userEmail) {
+        System.out.println("AccessTOKEN = " + accessToken);
         Form form = new Form();
         form.add("body", body);
         Group group = getGroup(accessToken, groupName);
         if (null != group) {
             form.add("group_id", group.getId());
         } else {
-            return "NO_SUCH_GROUP";
+            return new Messages();
         }
-        return resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(String.class, form);
+        if (null != userEmail) {
+            String token = getToken(accessToken, userEmail).getToken();
+            accessToken = StringUtils.isNotEmpty(token) ? token : accessToken;
+        }
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/messages.json", accessToken);
+        return resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(Messages.class, form);
+    }
+
+    private Token getToken(String accessToken, String userEmail) {
+        Form form = new Form();
+        List<User> users = getUsers("https://www.yammer.com/api/v1/users.json", accessToken);
+        for (User u : users) {
+            UserContacts contacts = u.getContact();
+            if (null != contacts
+                    && null != contacts.getEmailAddresses()
+                    && contacts.getEmailAddresses().length > 0
+                    && userEmail.equals(contacts.getEmailAddresses()[0].getAddress())) {
+                System.out.println(u.toString());
+                form.add("user_id", u.getId());
+            }
+        }
+        form.add("consumer_key", consumerKey);
+        //WebResource resource = oauthResource("https://www.yammer.com/api/v1/oauth/tokens.json?user_id=" + form.getFirst("user_id"), accessToken);
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/oauth.json", accessToken);
+        Token ss = resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(Token.class, form);
+        System.out.println("!!! token: " + ss);
+        return ss;
     }
 
     private List<Message> getMessages(String url, String accessToken) {
@@ -431,7 +480,7 @@ public class YammerConnector {
         form.add("im_username", user.getContact().getImAddress().getUsername());
         form.add("significant_other", user.getSignificantOther());
         form.add("kids_names", user.getKidsNames());
-        form.add("interests", StringUtils.join(user.getInterests()));
+        form.add("interests", user.getInterests());
         form.add("summary", user.getSummary());
         form.add("expertise", user.getExpertise());
         return form;
@@ -451,7 +500,7 @@ public class YammerConnector {
         user.setSignificantOther(significant_other);
         user.setKidsNames(kids_names);
         if (null != interests) {
-            user.setInterests(interests.split(","));
+            user.setInterests(interests);
         }
         user.setSummary(summary);
         user.setExpertise(expertise);
@@ -511,6 +560,8 @@ public class YammerConnector {
             throw new RuntimeException(response.getEntity(String.class));
         }
 
+//        System.out.println(response.getEntity(String.class));
+
         T object = response.getEntity(clazz);
 
         return object;
@@ -553,7 +604,7 @@ public class YammerConnector {
      * @return the authenticated {@link WebResource}
      */
     protected WebResource oauthResource(String url, String accessToken) {
-        WebResource resource = client.resource(url + "?access_token=" + accessToken);
+        WebResource resource = client.resource(url + (url.contains("?") ? "&" : "?") + "access_token=" + accessToken);
         OAuthParameters params = new OAuthParameters().signatureMethod(HMAC_SHA1.NAME).consumerKey(
                 consumerKey).token(accessToken).version("2.0");
 

@@ -44,7 +44,7 @@ public class YammerTestCase extends Assert {
         // String oauthVerifier = getOauthVerifierFromSystemIn();
         // connector.setOauthVerifier(oauthVerifier);
 
-        List<Message> messages = connector.getMessages(token);
+        List<Message> messages = connector.getMessages(token, null);
         assertTrue(messages.size() > 0);
         
         messages = connector.getSentMessages(token);
