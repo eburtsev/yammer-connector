@@ -57,6 +57,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.mule.api.annotations.param.Payload;
 
 /**
  * Connector for Yammer related functions.
@@ -207,6 +208,31 @@ public class YammerConnector {
     @Processor
     public List<Message> getMessages(@OAuthAccessToken String accessToken, @Optional Integer duration) {
         List<Message> allMessages = getMessages("https://www.yammer.com/api/v1/messages.json", accessToken);
+        return getMessages(allMessages, duration);
+    }
+
+    /**
+     * Answers all messages in threads. Corresponds to the "Company Feed"
+     * tab on the website.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
+     *
+     * @param accessToken OAuth access token
+     * @param ids ids
+     * @param duration duration
+     * @return the list of {@link Message}s
+     */
+    @Processor
+    public List<Message> getThreadMessages(@OAuthAccessToken String accessToken, @Payload List<String> ids, @Optional Integer duration) {
+        List<Message> messages = new ArrayList<Message>();
+        for (String id : ids) {
+            List<Message> threadMessages = getMessages(String.format("https://www.yammer.com/api/v1/messages/in_thread/%s.json", id), accessToken);
+            messages.addAll(getMessages(threadMessages, duration));
+        }
+        return messages;
+    }
+
+    private List<Message> getMessages(List<Message> allMessages, Integer duration) {
         try {
             if (null != duration) {
                 List<Message> messages = new ArrayList<Message>();
