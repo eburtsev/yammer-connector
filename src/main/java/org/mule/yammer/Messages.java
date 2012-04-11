@@ -25,4 +25,10 @@ public class Messages
     {
         this.messages = messages;
     }
+
+    @Override
+    public String toString() {
+        return "Messages{" + "messages=" + messages + '}';
+    }
+
 }
