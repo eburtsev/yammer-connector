@@ -431,11 +431,19 @@ public class YammerConnector {
      *
      * @param accessToken OAuth access token
      * @param email User email
+     * @param id id
      * @return the list of {@link Message}s
      */
     @Processor
-    public User getUser(@OAuthAccessToken String accessToken, String email) {
-        return getUserFromUrl(String.format("https://www.yammer.com/api/v1/users/by_email.json?email=%s", email), accessToken);
+    public User getUser(@OAuthAccessToken String accessToken, @Optional String email, @Optional Long id) {
+        if (null != email) {
+            Users users = getGenericObject(String.format("https://www.yammer.com/api/v1/users/by_email.json?email=%s", email), accessToken, Users.class);
+            return users.size() > 0 ? users.get(0) : null;
+        }
+        if (null != id) {
+            return getGenericObject(String.format("https://www.yammer.com/api/v1/users/%s.json", id), accessToken, User.class);
+        }
+        return null;
     }
 
     /**
