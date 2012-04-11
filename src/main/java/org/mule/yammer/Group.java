@@ -105,4 +105,9 @@ public class Group {
         this.webUrl = webUrl;
     }
 
+    @Override
+    public String toString() {
+        return "Group{" + "type=" + type + ", privacy=" + privacy + ", webUrl=" + webUrl + ", mugshotUrl=" + mugshotUrl + ", url=" + url + ", description=" + description + ", fullName=" + fullName + ", name=" + name + ", id=" + id + '}';
+    }
+
 }

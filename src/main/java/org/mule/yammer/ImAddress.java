@@ -36,4 +36,9 @@ public class ImAddress {
 		this.username = username;
 	}
 
+    @Override
+    public String toString() {
+        return "ImAddress{" + "provider=" + provider + ", username=" + username + '}';
+    }
+
 }

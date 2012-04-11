@@ -40,4 +40,9 @@ public class UserStatistics {
 		this.updates = updates;
 	}
 
+    @Override
+    public String toString() {
+        return "UserStatistics{" + "updates=" + updates + ", following=" + following + ", followers=" + followers + '}';
+    }
+
 }

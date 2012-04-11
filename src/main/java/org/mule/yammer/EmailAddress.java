@@ -36,4 +36,9 @@ public class EmailAddress {
 		this.type = type;
 	}
 
+    @Override
+    public String toString() {
+        return "EmailAddress{" + "type=" + type + ", address=" + address + '}';
+    }
+
 }

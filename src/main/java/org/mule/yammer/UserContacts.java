@@ -40,4 +40,9 @@ public class UserContacts {
 		this.phoneNumbers = phoneNumbers;
 	}
 
+    @Override
+    public String toString() {
+        return "UserContacts{" + "emailAddresses=" + emailAddresses + ", imAddress=" + imAddress + ", phoneNumbers=" + phoneNumbers + '}';
+    }
+
 }

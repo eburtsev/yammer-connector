@@ -168,4 +168,9 @@ public class Token {
         this.viewTags = viewTags;
     }
 
+    @Override
+    public String toString() {
+        return "Token{" + "viewMembers=" + viewMembers + ", expiresAt=" + expiresAt + ", createdAt=" + createdAt + ", viewGroups=" + viewGroups + ", authorizedAt=" + authorizedAt + ", networkId=" + networkId + ", token=" + token + ", networkPermalink=" + networkPermalink + ", userId=" + userId + ", viewMessages=" + viewMessages + ", modifyMessages=" + modifyMessages + ", networkName=" + networkName + ", modifySubscriptions=" + modifySubscriptions + ", viewSubscriptions=" + viewSubscriptions + ", secret=" + secret + ", viewTags=" + viewTags + '}';
+    }
+
 }

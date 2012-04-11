@@ -37,4 +37,9 @@ public class LikedBy
         this.names = names;
     }
 
+    @Override
+    public String toString() {
+        return "LikedBy{" + "count=" + count + ", names=" + names + '}';
+    }
+
 }

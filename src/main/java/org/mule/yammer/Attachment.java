@@ -146,4 +146,9 @@ public class Attachment
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Attachment{" + "type=" + type + ", contentType=" + contentType + ", uuid=" + uuid + ", webUrl=" + webUrl + ", inlineUrl=" + inlineUrl + ", inlineHtml=" + inlineHtml + ", yId=" + yId + ", image=" + image + ", name=" + name + ", id=" + id + ", ymodule=" + ymodule + '}';
+    }
+
 }

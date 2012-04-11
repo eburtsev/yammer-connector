@@ -50,5 +50,10 @@ public class ImageInfo
     {
         this.size = size;
     }
-    
+
+    @Override
+    public String toString() {
+        return "ImageInfo{" + "thumbnailUrl=" + thumbnailUrl + ", url=" + url + ", size=" + size + '}';
+    }
+
 }

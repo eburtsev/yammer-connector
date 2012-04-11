@@ -34,4 +34,9 @@ public class Name
         this.fullName = fullName;
     }
 
+    @Override
+    public String toString() {
+        return "Name{" + "permalink=" + permalink + ", fullName=" + fullName + '}';
+    }
+
 }
