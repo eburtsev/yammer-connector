@@ -413,6 +413,44 @@ public class YammerConnector {
     }
 
     /**
+     * Join to group on behalf of user
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-user}
+     *
+     * @param accessToken OAuth access token
+     * @param email User email
+     * @param groupName groupName
+     * @return the list of {@link Message}s
+     */
+    @Processor
+    public String joinGroup(@OAuthAccessToken String accessToken, String email, String groupName) {
+        Group group = getGroup(accessToken, groupName);
+        if (null == group)
+            return "NO_SUCH_GROUP";
+        String userToken = getToken(accessToken, email).getToken();
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/group_memberships.json?group_id=" + group.getId(), userToken);
+        return resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(String.class);
+    }
+
+    /**
+     * Join to group on behalf of user
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-user}
+     *
+     * @param accessToken OAuth access token
+     * @param email User email
+     * @param groupName groupName
+     * @return the list of {@link Message}s
+     */
+    @Processor
+    public String leaveGroup(@OAuthAccessToken String accessToken, String email, String groupName) {
+        Group group = getGroup(accessToken, groupName);
+        if (null == group)
+            return "NO_SUCH_GROUP";
+        String userToken = getToken(accessToken, email).getToken();
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/group_memberships.json?group_id=" + group.getId(), userToken);
+        return resource.type(MediaType.APPLICATION_FORM_URLENCODED).delete(String.class);
+    }
+
+    /**
      * Creates a new message in the account of the logged-in user.
      * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:create-message}
      *
