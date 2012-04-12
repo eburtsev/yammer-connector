@@ -115,6 +115,8 @@ public class YammerConnector {
     @OAuthConsumerSecret
     private String consumerSecret;
 
+    private String adminEmail;
+
     /**
      * If connector should be run in debug mode. This enables logging of HTTP
      * activity against Yammer
@@ -156,6 +158,7 @@ public class YammerConnector {
     @Processor
     public void login(String url, String username, String password) throws IOException {
         logger.info(String.format("login(%s, %s, %s)", url, username, password));
+        adminEmail = username;
         HttpConnection httpConnection = new HttpConnection();
         // Request login page
         String content = httpConnection.requestToUrl(new HttpGet(url));
@@ -500,14 +503,36 @@ public class YammerConnector {
         Form form = new Form();
         form.add("body", body);
         Group group = getGroup(accessToken, groupName);
+        System.out.println("Group: " + group);
         if (null != group) {
             form.add("group_id", group.getId());
         } else {
             return new Messages();
         }
+        boolean isUser = false;
         if (null != userEmail) {
-            String token = getToken(accessToken, userEmail).getToken();
-            accessToken = StringUtils.isNotEmpty(token) ? token : accessToken;
+            Token token = getToken(accessToken, userEmail);
+            if (null != token) {
+                String strToken = token.getToken();
+                System.out.println("Tokennnn: " + strToken);
+                if (StringUtils.isNotEmpty(strToken)) {
+                    try {
+                        joinGroup(accessToken, userEmail, groupName);
+                    } catch (Exception e) {
+                        System.out.println("EEEE");
+                    }
+                    accessToken = StringUtils.isNotEmpty(strToken) ? strToken : accessToken;
+                    isUser = true;
+                }
+            }
+        }
+        if (!isUser) {
+            try {
+                System.out.println("adminEmail: " + adminEmail);
+                joinGroup(accessToken, adminEmail, groupName);
+            } catch (Exception e) {
+                System.out.println("EEEE");
+            }
         }
         WebResource resource = oauthResource("https://www.yammer.com/api/v1/messages.json", accessToken);
         return resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(Messages.class, form);
@@ -526,8 +551,10 @@ public class YammerConnector {
                 form.add("user_id", u.getId());
             }
         }
+        if (!form.containsKey("user_id")) {
+            return null;
+        }
         form.add("consumer_key", consumerKey);
-        //WebResource resource = oauthResource("https://www.yammer.com/api/v1/oauth/tokens.json?user_id=" + form.getFirst("user_id"), accessToken);
         WebResource resource = oauthResource("https://www.yammer.com/api/v1/oauth.json", accessToken);
         Token ss = resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(Token.class, form);
         System.out.println("!!! token: " + ss);
