@@ -495,19 +495,25 @@ public class YammerConnector {
      * @param body the content of the message to create
      * @param groupName groupName
      * @param userEmail userEmail
+     * @param replyToId replyToId
      * @return the message created.
      */
     @Processor
-    public Messages createMessage(@OAuthAccessToken String accessToken, String body, @Optional String groupName, @Optional String userEmail) {
+    public Messages createMessage(@OAuthAccessToken String accessToken, String body, @Optional String groupName, @Optional String userEmail, @Optional Long replyToId) {
         System.out.println("AccessTOKEN = " + accessToken);
         Form form = new Form();
         form.add("body", body);
-        Group group = getGroup(accessToken, groupName);
-        System.out.println("Group: " + group);
-        if (null != group) {
-            form.add("group_id", group.getId());
-        } else {
-            return new Messages();
+        if (null != groupName) {
+            Group group = getGroup(accessToken, groupName);
+            System.out.println("Group: " + group);
+            if (null != group) {
+                form.add("group_id", group.getId());
+            } else {
+                return new Messages();
+            }
+        }
+        if (null != replyToId) {
+            form.add("replied_to_id", replyToId.longValue());
         }
         boolean isUser = false;
         if (null != userEmail) {
