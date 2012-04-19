@@ -397,7 +397,33 @@ public class YammerConnector {
             @Optional String significantOther, @Optional String kidsNames,
             @Optional String interests, @Optional String summary, @Optional String expertise) {
         User user = createUserObject(email, imProvider, imUsername, fullName, jobTitle, significantOther, kidsNames, interests, summary, expertise);
-        createUser(accessToken, user);
+        createUser(accessToken, user, email);
+    }
+
+    /**
+     * Removes user
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-yammer.xml.sample yammer:get-messages}
+     *
+     * @param accessToken OAuth access token
+     * @param email email
+     * 
+     */
+    @Processor
+    public void removeUser(@OAuthAccessToken String accessToken, String email) {
+        User user = getUser(accessToken, email, null);
+        if (null == user) {
+            System.out.println("No such user!");
+            return;
+        }
+        String url = String.format("https://www.yammer.com/api/v1/users/%s.json?delete=true", user.getId());
+        WebResource resource = oauthResource(url, accessToken);
+        ClientResponse response = resource.delete(ClientResponse.class);
+        System.out.println(response.getStatus());
+        if (response.getStatus() != HttpStatus.OK.value()) {
+            throw new RuntimeException(response.getEntity(String.class));
+        }
+        System.out.println("============================================");
     }
 
     /**
@@ -578,11 +604,19 @@ public class YammerConnector {
 
     private Form convertUserObjectToHttpForm(User user) {
         Form form = new Form();
-        form.add("email", user.getContact().getEmailAddresses()[0].getAddress());
         form.add("full_name", user.getFullName());
         form.add("job_title", user.getJobTitle());
-        form.add("im_provider", user.getContact().getImAddress().getProvider());
-        form.add("im_username", user.getContact().getImAddress().getUsername());
+        if (null != user.getContact()) {
+            if (null != user.getContact().getImAddress()) {
+                form.add("im_provider", user.getContact().getImAddress().getProvider());
+                form.add("im_username", user.getContact().getImAddress().getUsername());
+            }
+            if (null != user.getContact().getEmailAddresses()) {
+                if (null != user.getContact().getEmailAddresses()[0]) {
+                    form.add("email", user.getContact().getEmailAddresses()[0].getAddress());
+                }
+            }
+        }
         form.add("significant_other", user.getSignificantOther());
         form.add("kids_names", user.getKidsNames());
         form.add("interests", user.getInterests());
@@ -612,9 +646,30 @@ public class YammerConnector {
         return user;
     }
 
-    private User createUser(String accessToken, User user) {
+    private User createUser(String accessToken, User user, String email) {
         WebResource resource = oauthResource("https://www.yammer.com/api/v1/users.json", accessToken);
         Form form = convertUserObjectToHttpForm(user);
+        ClientResponse response = resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, form);
+        System.out.println("============================================");
+        System.out.println(response.getStatus());
+        if (response.getStatus() != HttpStatus.CREATED.value()) {
+            String responseStr = response.getEntity(String.class);
+            if ("user already exists in this network".equalsIgnoreCase(responseStr)) {
+                System.out.println("User already exists");
+            } else {
+                throw new RuntimeException();
+            }
+        }
+        System.out.println(inviteUser(accessToken, email));
+        System.out.println("============================================");
+
+        return user;
+    }
+
+    private String inviteUser(String accessToken, String email) {
+        WebResource resource = oauthResource("https://www.yammer.com/api/v1/invitations.json", accessToken);
+        Form form = new Form();
+        form.add("email", email);
         ClientResponse response = resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, form);
         System.out.println("============================================");
         System.out.println(response.getStatus());
@@ -624,7 +679,7 @@ public class YammerConnector {
 
         System.out.println("============================================");
 
-        return user;
+        return response.getEntity(String.class);
     }
 
     private User updateUser(String accessToken, String email, User user) {
